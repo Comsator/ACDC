@@ -2,7 +2,7 @@
 
 **Aplikace: https://comsator.github.io/ACDC/**
 
-Webová aplikace, která ukazuje ceny AC a DC nabíjení u PRE, ČEZ, E.ON, innogy, Ionity, Tesly a Shell Recharge. Běží samostatně na GitHub Pages a na iPhonu ji lze přidat na plochu jako aplikaci.
+Webová aplikace, která ukazuje ceny AC a DC nabíjení u PRE, ČEZ, E.ON, innogy, Ionity, Tesly a Shell Recharge. Umí také porovnat náklady na 100 km se spalovacím autem podle cen paliv u Shell, OMV, Orlen, Tank ONO a EuroOil. Běží samostatně na GitHub Pages a na iPhonu ji lze přidat na plochu jako aplikaci.
 
 ## Soubory
 
@@ -36,5 +36,6 @@ Aplikace si při každém otevření (a pak každých 30 minut) stáhne `ceny.js
 - Každý provozovatel má seznam `tariffs`; tarif má `tier` (`adhoc` = bez registrace, `free` = registrace bez paušálu, `paid` = s paušálem), `fee` (paušál v Kč) a `rates`.
 - Sazba (`rates`) má `kind` (`AC` nebo `DC`), u DC pásmo výkonu `minKw`/`maxKw`, cenu `p`, případně horní mez `pMax`, příznak `from` (cena „od“) a časová okna `tod` pro denní a noční sazbu (`from`/`to` jsou hodiny českého času).
 - Kde cena není známá, je místo `p` text v poli `na`.
+- Pole `fuel` obsahuje ceny paliv v Kč/l: u každé značky `natural95` a `diesel` s cenou `p`, případně horní mezí rozpětí `pMax`. Příznak `cap: true` znamená, že jde o horní mez danou státním cenovým stropem, ne o doloženou cenu značky. Záznam s `kind: "cap"` popisuje samotný cenový strop.
 
 Rozhodující je vždy cena v aplikaci provozovatele nebo na stojanu.

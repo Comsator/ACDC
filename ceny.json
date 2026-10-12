@@ -910,5 +910,154 @@
     }
    ]
   }
+ ],
+ "fuel": [
+  {
+   "id": "strop",
+   "kind": "cap",
+   "name": "Cenový strop MF",
+   "order": 0,
+   "validFrom": "2026-10-10",
+   "validTo": "2026-10-12",
+   "verifiedAt": "2026-10-12",
+   "natural95": {
+    "p": 46.48
+   },
+   "diesel": {
+    "p": 47.67
+   },
+   "note": "Ministerstvo financí stanovuje v říjnu 2026 denní maximální ceny běžného benzinu a nafty. Pro 10.–12. 10. 2026 je to 46,48 Kč/l (benzin) a 47,67 Kč/l (nafta). Průměr v ČR podle CCS za týden do 8. 10.: Natural 95 45,26 Kč/l, nafta 47,44 Kč/l.",
+   "sources": [
+    {
+     "label": "MF ČR: maximální přípustné ceny",
+     "url": "https://mf.gov.cz/cs/kontrola-a-regulace/cenova-regulace-a-kontrola/maximalni-pripustne-ceny-benzinu-a-nafty"
+    },
+    {
+     "label": "Byznys noviny: stropy a průměrné ceny (8. 10. 2026)",
+     "url": "https://www.byznysnoviny.cz/2026/10/08/ministerstvo-zvysilo-cenove-stropy-a-umoznilo-tak-dalsi-zdrazeni-nafty-a-benzinu-v-cesku/"
+    }
+   ]
+  },
+  {
+   "id": "shell",
+   "name": "Shell",
+   "order": 1,
+   "status": "cap",
+   "verifiedAt": "2026-10-12",
+   "natural95": {
+    "p": 46.48,
+    "cap": true
+   },
+   "diesel": {
+    "p": 47.67,
+    "cap": true
+   },
+   "note": "Shell ceny na webu nezveřejňuje. Naposledy doložené ceny jsou z 1. 10. 2026 (46,10 a 48,70 Kč/l, těsně pod tehdejším stropem), proto je uvedena horní mez daná dnešním cenovým stropem.",
+   "sources": [
+    {
+     "label": "iROZHLAS: ceny po zastropování (1. 10. 2026)",
+     "url": "https://www.irozhlas.cz/ekonomika/prehled-vlada-opet-reguluje-ceny-pohonnych-hmot-kde-natankujete-nejlevneji_2610011039_raf"
+    },
+    {
+     "label": "E15: ceny u pump po zavedení stropu",
+     "url": "https://www.e15.cz/byznys/prumysl-a-energetika/cenovy-strop-srazil-ceny-nafty-az-o-tri-koruny-benzin-reaguje-pomaleji-cast-pumparu-scita-ztraty-1436179"
+    }
+   ]
+  },
+  {
+   "id": "omv",
+   "name": "OMV",
+   "order": 2,
+   "status": "cap",
+   "verifiedAt": "2026-10-12",
+   "natural95": {
+    "p": 46.48,
+    "cap": true
+   },
+   "diesel": {
+    "p": 47.67,
+    "cap": true
+   },
+   "note": "OMV ceny na webu nezveřejňuje. Naposledy doložené ceny jsou z 1. 10. 2026 (46,10 a 48,70 Kč/l, těsně pod tehdejším stropem), proto je uvedena horní mez daná dnešním cenovým stropem.",
+   "sources": [
+    {
+     "label": "iROZHLAS: ceny po zastropování (1. 10. 2026)",
+     "url": "https://www.irozhlas.cz/ekonomika/prehled-vlada-opet-reguluje-ceny-pohonnych-hmot-kde-natankujete-nejlevneji_2610011039_raf"
+    },
+    {
+     "label": "E15: ceny u pump po zavedení stropu",
+     "url": "https://www.e15.cz/byznys/prumysl-a-energetika/cenovy-strop-srazil-ceny-nafty-az-o-tri-koruny-benzin-reaguje-pomaleji-cast-pumparu-scita-ztraty-1436179"
+    }
+   ]
+  },
+  {
+   "id": "orlen",
+   "name": "Orlen",
+   "order": 3,
+   "status": "cap",
+   "verifiedAt": "2026-10-12",
+   "natural95": {
+    "p": 46.48,
+    "cap": true
+   },
+   "diesel": {
+    "p": 47.67,
+    "cap": true
+   },
+   "note": "Orlen 1. 10. 2026 prodával na úrovni stropu (45,90–46,14 a 48,72 Kč/l). Aktuální cenu se nepodařilo doložit, proto je uvedena horní mez daná dnešním cenovým stropem.",
+   "sources": [
+    {
+     "label": "iROZHLAS: ceny po zastropování (1. 10. 2026)",
+     "url": "https://www.irozhlas.cz/ekonomika/prehled-vlada-opet-reguluje-ceny-pohonnych-hmot-kde-natankujete-nejlevneji_2610011039_raf"
+    },
+    {
+     "label": "E15: ceny u pump po zavedení stropu",
+     "url": "https://www.e15.cz/byznys/prumysl-a-energetika/cenovy-strop-srazil-ceny-nafty-az-o-tri-koruny-benzin-reaguje-pomaleji-cast-pumparu-scita-ztraty-1436179"
+    }
+   ]
+  },
+  {
+   "id": "tankono",
+   "name": "Tank ONO",
+   "order": 4,
+   "status": "secondary",
+   "asOf": "2026-10-12",
+   "verifiedAt": "2026-10-12",
+   "natural95": {
+    "p": 43.5
+   },
+   "diesel": {
+    "p": 44.9
+   },
+   "note": "Jednotná cena na všech stanicích podle mBenzin.cz, ceník ověřen 12. 10. 2026.",
+   "sources": [
+    {
+     "label": "mBenzin.cz: Tank ONO",
+     "url": "https://www.mbenzin.cz/Ceny-benzinu-a-nafty/Retezce/Tank-ONO"
+    }
+   ]
+  },
+  {
+   "id": "eurooil",
+   "name": "EuroOil",
+   "order": 5,
+   "status": "secondary",
+   "verifiedAt": "2026-10-12",
+   "natural95": {
+    "p": 43.5,
+    "pMax": 44.5
+   },
+   "diesel": {
+    "p": 45.5,
+    "pMax": 46.9
+   },
+   "note": "Rozpětí cen na 40 stanicích podle mBenzin.cz (nejčastěji 44,50 a 46,50 Kč/l). Datum nahlášení jednotlivých cen stránka neuvádí; jedna zjevně neaktuální cena nafty nad stropem je vynechána.",
+   "sources": [
+    {
+     "label": "mBenzin.cz: EuroOil",
+     "url": "https://www.mbenzin.cz/Ceny-benzinu-a-nafty/Retezce/EuroOil"
+    }
+   ]
+  }
  ]
 }

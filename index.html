@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Ceny nabíjení elektromobilů</title>
-<meta name="description" content="Aktuální ceny AC a DC nabíjení elektromobilů u PRE, ČEZ, E.ON, innogy, Ionity, Tesly a Shell Recharge.">
+<meta name="description" content="Aktuální ceny AC a DC nabíjení elektromobilů u PRE, ČEZ, E.ON, innogy, Ionity, Tesly a Shell Recharge a porovnání nákladů na 100 km se spalovacím autem.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Nabíjení">
@@ -28,6 +28,7 @@ img{max-width:100%}
   --tile:#14302c; --tile-ink:#f1f6f3; --tile-sub:#a9c2bc; --tile-line:#14302c;
   --tile-best:#7ee2b8; --tile-day:#f5c16c; --tile-night:#b3bdff;
   --ok-bg:#dff3e6; --ok-ink:#0b5b3b; --warn-bg:#fdeed0; --warn-ink:#7a4a00; --info-bg:#e3e9f6; --info-ink:#2c3c7a;
+  --c-ev:#2a78d6; --c-fuel:#eb6834; --axis:#b4c0bb;
   --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
   --body:"Barlow","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
 }
@@ -37,6 +38,7 @@ img{max-width:100%}
   --tile:#0a1211; --tile-ink:#f1f6f3; --tile-sub:#9bb3ad; --tile-line:#2a3a37;
   --tile-best:#7ee2b8; --tile-day:#f5c16c; --tile-night:#b3bdff;
   --ok-bg:#123a2a; --ok-ink:#8be0b4; --warn-bg:#3a2c10; --warn-ink:#f2c979; --info-bg:#1e2747; --info-ink:#b3bdff;
+  --c-ev:#3987e5; --c-fuel:#d95926; --axis:#40524e;
   color-scheme:dark } }
 :root[data-theme="dark"]{
   --bg:#0f1716; --surface:#172221; --ink:#e7efec; --muted:#93a5a1; --line:#2a3a37;
@@ -44,6 +46,7 @@ img{max-width:100%}
   --tile:#0a1211; --tile-ink:#f1f6f3; --tile-sub:#9bb3ad; --tile-line:#2a3a37;
   --tile-best:#7ee2b8; --tile-day:#f5c16c; --tile-night:#b3bdff;
   --ok-bg:#123a2a; --ok-ink:#8be0b4; --warn-bg:#3a2c10; --warn-ink:#f2c979; --info-bg:#1e2747; --info-ink:#b3bdff;
+  --c-ev:#3987e5; --c-fuel:#d95926; --axis:#40524e;
   color-scheme:dark }
 
 *{box-sizing:border-box}
@@ -117,11 +120,51 @@ a{color:var(--accent)}
 .foot{font-size:.88rem;color:var(--muted);max-width:72ch;display:flex;flex-direction:column;gap:6px}
 .foot p{margin:0}
 
+.compare{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 16px;display:flex;flex-direction:column;gap:16px}
+.compare h2{font-family:var(--display);font-weight:700;font-size:1.65rem;line-height:1.05;margin:0}
+.compare .lead{font-size:.95rem}
+.cmp-controls{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end}
+#cmpOut{display:flex;flex-direction:column;gap:16px}
+.cmp-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px 24px}
+.stat{border-top:2px solid var(--ink);padding-top:8px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat .s-l{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stat .s-v{font-family:var(--display);font-weight:700;font-size:2rem;line-height:1.05}
+.stat .s-v small{font-family:var(--body);font-weight:500;font-size:.8rem;color:var(--muted);margin-left:5px}
+.stat .s-s{font-size:.88rem;color:var(--muted)}
+.cmp-delta{margin:0;max-width:65ch}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.85rem;color:var(--muted);margin:0;padding:0;list-style:none}
+.legend li{display:flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:2px;display:inline-block;flex:none}
+.sw.ev,.fill.ev,.ext.ev{background:var(--c-ev)}
+.sw.fuel,.fill.fuel,.ext.fuel{background:var(--c-fuel)}
+.sw.rng{background:var(--muted);opacity:.38}
+.chart{display:flex;flex-direction:column}
+.cmp-row{display:grid;grid-template-columns:230px minmax(0,1fr);gap:0 12px;align-items:center;border-radius:4px}
+.cmp-row:hover,.cmp-row:focus-visible{background:var(--bg)}
+.cmp-row:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.cmp-name{display:flex;flex-direction:column;min-width:0;padding-block:4px;text-align:right}
+.cmp-name b{font-weight:600;font-size:.95rem}
+.cmp-name span{font-size:.78rem;color:var(--muted)}
+.cmp-bar{display:flex;align-items:center;min-width:0;border-left:1px solid var(--axis);padding-block:8px}
+.fill,.ext{display:block;height:18px;flex:none}
+.fill{width:calc((100% - 8em) * var(--f));border-radius:0 4px 4px 0;min-width:2px}
+.fill.has-ext{border-radius:0}
+.ext{width:calc((100% - 8em) * var(--f));border-radius:0 4px 4px 0;opacity:.38}
+.cmp-val{margin-left:8px;font-size:.88rem;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink)}
+.tip{position:fixed;z-index:20;pointer-events:none;background:var(--ink);color:var(--surface);font-size:.82rem;line-height:1.35;padding:6px 9px;border-radius:4px;max-width:270px}
+.cmp-more summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.9rem}
+.cmp-more[open] summary{margin-bottom:10px}
+.cmp-note{margin:0;font-size:.86rem;color:var(--muted);max-width:72ch}
+
 @media (max-width:720px){
   .op-head{grid-template-columns:1fr 1fr}
   .op-id{grid-column:1/-1}
   .price{font-size:2rem} .price.long{font-size:1.45rem}
   .controls{padding:12px}
+  .cmp-row{grid-template-columns:1fr}
+  .cmp-name{text-align:left;flex-direction:row;flex-wrap:wrap;gap:2px 8px;align-items:baseline;padding-block:6px 0}
+  .cmp-bar{padding-block:3px 8px}
+  .fill,.ext{width:calc((100% - 7em) * var(--f))}
 }
 @media (prefers-reduced-motion:no-preference){ .tile{transition:background-color .2s} }
 </style>
@@ -174,13 +217,49 @@ a{color:var(--accent)}
     <div class="empty"><b>Načítám ceníky…</b>Za okamžik se tu objeví ceny AC a DC nabíjení u PRE, ČEZ, E.ON, innogy, Ionity, Tesly a Shell Recharge.</div>
   </main>
 
+  <section class="compare" aria-labelledby="cmpTitle">
+    <h2 id="cmpTitle">Náklady na 100 km</h2>
+    <p class="lead">Kolik stojí 100 km na elektřinu a kolik se spalovacím autem. Ceny nabíjení se berou z nastavení nahoře (způsob platby a výkon DC stanice).</p>
+    <div class="cmp-controls">
+      <div>
+        <label class="lbl" for="iceCons">Spotřeba spalovacího auta</label>
+        <div class="num"><input type="number" id="iceCons" min="1" max="30" step="0.1" inputmode="decimal"> <span>l/100 km</span></div>
+      </div>
+      <fieldset>
+        <legend>Palivo</legend>
+        <div class="seg">
+          <input type="radio" name="fuelType" id="ft-natural95" value="natural95"><label for="ft-natural95">Natural 95</label>
+          <input type="radio" name="fuelType" id="ft-diesel" value="diesel"><label for="ft-diesel">Nafta</label>
+        </div>
+      </fieldset>
+      <div>
+        <label class="lbl" for="evCons">Spotřeba elektromobilu</label>
+        <div class="num"><input type="number" id="evCons" min="5" max="60" step="0.5" inputmode="decimal"> <span>kWh/100 km</span></div>
+      </div>
+      <fieldset>
+        <legend>Nabíjení v grafu</legend>
+        <div class="seg">
+          <input type="radio" name="cmpCol" id="cc-DC" value="DC"><label for="cc-DC">DC</label>
+          <input type="radio" name="cmpCol" id="cc-AC" value="AC"><label for="cc-AC">AC</label>
+        </div>
+      </fieldset>
+      <div>
+        <label class="lbl" for="ownFuel">Vlastní cena paliva</label>
+        <div class="num"><input type="number" id="ownFuel" min="0" max="100" step="0.1" inputmode="decimal" placeholder="např. 45" style="width:6.6em"> <span>Kč/l</span></div>
+      </div>
+    </div>
+    <div id="cmpOut"></div>
+  </section>
+  <div class="tip" id="cmpTip" hidden></div>
+
   <footer class="foot" id="foot"></footer>
 </div>
 
 <script>
 (function(){
   "use strict";
-  var S = { ops:null, status:"loading", mode:"free", kw:150, sort:"dc", kwh:50, pre:false, open:{}, minute:-1 };
+  var S = { ops:null, fuel:[], status:"loading", mode:"free", kw:150, sort:"dc", kwh:50, pre:false, open:{}, minute:-1,
+            ice:7, ev:22, fuelType:"natural95", cmpCol:"DC", own:0 };
   var TZ = "Europe/Prague";
 
   function loadPrefs(){
@@ -191,16 +270,22 @@ a{color:var(--accent)}
       if(["dc","ac","name"].indexOf(p.sort)>=0) S.sort=p.sort;
       if(typeof p.kwh==="number" && p.kwh>=0 && p.kwh<=200) S.kwh=p.kwh;
       S.pre = !!p.pre;
+      if(typeof p.ice==="number" && p.ice>0 && p.ice<=30) S.ice=p.ice;
+      if(typeof p.ev==="number" && p.ev>0 && p.ev<=60) S.ev=p.ev;
+      if(["natural95","diesel"].indexOf(p.fuelType)>=0) S.fuelType=p.fuelType;
+      if(["AC","DC"].indexOf(p.cmpCol)>=0) S.cmpCol=p.cmpCol;
+      if(typeof p.own==="number" && p.own>0 && p.own<=100) S.own=p.own;
     }catch(e){}
   }
   function savePrefs(){
-    try{ localStorage.setItem("nabijeni-prefs", JSON.stringify({mode:S.mode,kw:S.kw,sort:S.sort,kwh:S.kwh,pre:S.pre})); }catch(e){}
+    try{ localStorage.setItem("nabijeni-prefs", JSON.stringify({mode:S.mode,kw:S.kw,sort:S.sort,kwh:S.kwh,pre:S.pre,ice:S.ice,ev:S.ev,fuelType:S.fuelType,cmpCol:S.cmpCol,own:S.own})); }catch(e){}
   }
 
   function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
   function safeUrl(u){ return (typeof u==="string" && /^https:\/\//.test(u)) ? u : null; }
   function n2(x){ return Number(x).toLocaleString("cs-CZ",{minimumFractionDigits:2,maximumFractionDigits:2}); }
   function n0(x){ return Math.round(x).toLocaleString("cs-CZ"); }
+  function n1(x){ return Number(x).toLocaleString("cs-CZ",{maximumFractionDigits:1}); }
   function isNum(x){ return typeof x==="number" && isFinite(x); }
   function fmtDate(iso){ var m=/^(\d{4})-(\d{2})-(\d{2})/.exec(iso||""); return m ? (+m[3])+". "+(+m[2])+". "+m[1] : ""; }
 
@@ -323,6 +408,74 @@ a{color:var(--accent)}
     return h+'</div>';
   }
 
+  /* Cost per 100 km: charging networks (current settings above) against fuel brands. */
+  function renderCompare(rows){
+    var out=document.getElementById("cmpOut"); if(!out) return;
+    if(!rows){ out.innerHTML=""; return; }
+    var col=S.cmpCol, items=[], missing=[];
+    var fname = S.fuelType==="diesel" ? "nafta" : "Natural 95";
+    rows.forEach(function(r){
+      var c = col==="AC" ? r.ac : r.dc;
+      if(!c || !isNum(c.price.p)){ if(col==="DC" || r.ac) missing.push(r.op.name); return; }
+      var pr=c.price, hasMax=isNum(pr.pMax)&&pr.pMax!==pr.p;
+      items.push({kind:"ev", name:r.op.name, p:pr.p, pMax:hasMax?pr.pMax:null, q:pr.from?"od ":"",
+        sub:(col==="AC"?"AC":"DC "+S.kw+" kW")+" · "+fmtPrice(pr)+" Kč/kWh", unitTxt:fmtPrice(pr)+" Kč/kWh", cons:S.ev, cu:"kWh"});
+    });
+    var cap=null;
+    (S.fuel||[]).forEach(function(f){
+      if(f.kind==="cap"){ cap=f; return; }
+      var x=f[S.fuelType]; if(!x || !isNum(x.p)) return;
+      var hasMax=isNum(x.pMax)&&x.pMax!==x.p, ptxt=fmtPrice({p:x.p,pMax:x.pMax});
+      items.push({kind:"fuel", name:f.name, p:x.p, pMax:hasMax?x.pMax:null, q:x.cap?"do ":"",
+        sub:fname+" · "+(x.cap?"nejvýše "+ptxt+" Kč/l (strop)":ptxt+" Kč/l"), unitTxt:(x.cap?"nejvýše ":"")+ptxt+" Kč/l", cons:S.ice, cu:"l"});
+    });
+    if(S.own>0) items.push({kind:"fuel", name:"Vaše cena paliva", p:S.own, pMax:null, q:"", sub:fname+" · "+n2(S.own)+" Kč/l", unitTxt:n2(S.own)+" Kč/l", cons:S.ice, cu:"l"});
+    if(!(S.ice>0) || !(S.ev>0)){ out.innerHTML='<p class="cmp-note">Zadejte spotřebu obou aut, aby šlo náklady spočítat.</p>'; return; }
+    items.forEach(function(i){ i.cost=i.p*i.cons; i.costMax=i.pMax?i.pMax*i.cons:null; });
+    items.sort(function(a,b){ return a.cost-b.cost || (a.costMax||a.cost)-(b.costMax||b.cost); });
+    if(!items.length){ out.innerHTML='<p class="cmp-note">Pro toto nastavení nejsou k dispozici žádné ceny.</p>'; return; }
+    var max=Math.max.apply(null, items.map(function(i){ return i.costMax||i.cost; }));
+    function valTxt(i){ return i.q+n0(i.cost)+(i.costMax?"–"+n0(i.costMax):"")+" Kč"; }
+    var ev=items.filter(function(i){return i.kind==="ev";})[0], fu=items.filter(function(i){return i.kind==="fuel";})[0];
+    var h='<div class="cmp-stats">';
+    if(ev) h+='<div class="stat"><span class="s-l">Nejlevnější nabíjení ('+esc(col)+')</span><span class="s-v">'+esc(valTxt(ev))+'<small>na 100 km</small></span><span class="s-s">'+esc(ev.name)+' · '+esc(ev.unitTxt)+'</span></div>';
+    if(fu) h+='<div class="stat"><span class="s-l">Nejlevnější '+esc(fname)+'</span><span class="s-v">'+esc(valTxt(fu))+'<small>na 100 km</small></span><span class="s-s">'+esc(fu.name)+' · '+esc(fu.unitTxt)+'</span></div>';
+    h+='</div>';
+    if(ev && fu){
+      var d=fu.cost-ev.cost;
+      h+='<p class="cmp-delta">'+(Math.abs(d)<0.5 ? 'Nejlevnější nabíjení a nejlevnější palivo vycházejí na 100 km stejně.'
+        : 'Nejlevnější nabíjení vychází na 100 km o <b>'+n0(Math.abs(d))+' Kč '+(d>0?'levněji':'dráž')+'</b> než nejlevnější '+esc(fname)+'.')+'</p>';
+    }
+    var anyRange=items.some(function(i){return i.costMax;});
+    h+='<ul class="legend"><li><span class="sw ev"></span>Nabíjení (elektřina, '+n1(S.ev)+' kWh/100 km)</li><li><span class="sw fuel"></span>Palivo ('+esc(fname)+', '+n1(S.ice)+' l/100 km)</li>'+(anyRange?'<li><span class="sw rng"></span>světlejší část = rozpětí cen</li>':'')+'</ul>';
+    h+='<div class="chart" role="list" aria-label="Náklady na 100 km podle sítě">';
+    items.forEach(function(i){
+      var f=i.cost/max, g=i.costMax?(i.costMax-i.cost)/max:0;
+      var tip=i.name+": "+n1(i.cons)+" "+i.cu+" × "+i.unitTxt+" = "+valTxt(i)+" na 100 km";
+      h+='<div class="cmp-row" role="listitem" tabindex="0" data-tip="'+esc(tip)+'"><div class="cmp-name"><b>'+esc(i.name)+'</b><span>'+esc(i.sub)+'</span></div>'+
+         '<div class="cmp-bar"><i class="fill '+i.kind+(g?' has-ext':'')+'" style="--f:'+f.toFixed(4)+'"></i>'+(g?'<i class="ext '+i.kind+'" style="--f:'+g.toFixed(4)+'"></i>':'')+'<span class="cmp-val">'+esc(valTxt(i))+'</span></div></div>';
+    });
+    h+='</div>';
+    if(missing.length) h+='<p class="cmp-note">Bez ceny pro '+esc(col==="AC"?"AC":"DC")+' v tomto nastavení: '+esc(missing.join(", "))+'.</p>';
+    /* table view + sources */
+    h+='<details class="cmp-more"'+(S.open._tbl?' open':'')+' data-det="_tbl"><summary>Zobrazit jako tabulku</summary><div class="scroll"><table><thead><tr><th>Síť</th><th>Druh</th><th>Cena za jednotku</th><th>Spotřeba</th><th>Náklady na 100 km</th></tr></thead><tbody>'+
+      items.map(function(i){ return '<tr><td>'+esc(i.name)+'</td><td>'+(i.kind==="ev"?"nabíjení "+esc(col):esc(fname))+'</td><td>'+esc(i.unitTxt)+'</td><td>'+n1(i.cons)+' '+i.cu+'</td><td>'+esc(valTxt(i))+'</td></tr>'; }).join("")+'</tbody></table></div></details>';
+    var brands=(S.fuel||[]).filter(function(f){return f.kind!=="cap";});
+    if(brands.length || cap){
+      h+='<details class="cmp-more"'+(S.open._src?' open':'')+' data-det="_src"><summary>Odkud jsou ceny paliv</summary><ul class="notes">';
+      if(cap && cap.note) h+='<li>'+esc(cap.note)+srcLinks(cap)+'</li>';
+      brands.forEach(function(f){ h+='<li><b>'+esc(f.name)+':</b> '+esc(f.note||"")+srcLinks(f)+'</li>'; });
+      h+='</ul></details>';
+    }
+    if(!brands.length) h+='<p class="cmp-note">Ceny paliv zatím nejsou načtené; do grafu můžete zadat vlastní cenu paliva.</p>';
+    h+='<p class="cmp-note">Výpočet: spotřeba na 100 km × cena za litr nebo kWh. Nezahrnuje paušály za nabíjecí tarify ani ztráty při nabíjení, kvůli kterým bývá skutečný odběr ze stojanu o 5–15 % vyšší, než ukazuje palubní počítač.</p>';
+    out.innerHTML=h;
+  }
+  function srcLinks(o){
+    var l=(o.sources||[]).map(function(s){ var u=safeUrl(s.url); return u?'<a href="'+esc(u)+'" target="_blank" rel="noopener noreferrer">'+esc(s.label||u)+'</a>':''; }).filter(Boolean);
+    return l.length ? ' <span class="src" style="display:inline-flex">'+l.join("")+'</span>' : '';
+  }
+
   var STATUS = {official:"oficiální ceník", secondary:"orientační údaje", partial:"ověřeno částečně"};
 
   function render(){
@@ -339,7 +492,7 @@ a{color:var(--accent)}
               : S.status==="nodb" ? ['Ceníky se nepodařilo načíst','Zkontrolujte připojení k internetu a stránku načtěte znovu.']
               : ['Zatím tu nejsou žádné ceníky','Soubor ceny.json neobsahuje žádného provozovatele.'];
       board.innerHTML = '<div class="empty"><b>'+esc(msg[0])+'</b>'+esc(msg[1])+'</div>';
-      foot.innerHTML=""; return;
+      foot.innerHTML=""; renderCompare(null); return;
     }
     var rows = S.ops.map(function(op){ return {op:op, ac:pickCell(op,"AC",now), dc:pickCell(op,"DC",now)}; });
     function val(c){ return c && isNum(c.price.p) ? c.price.p : Infinity; }
@@ -374,6 +527,8 @@ a{color:var(--accent)}
         (open?detailHTML(op,picked):'')+'</article>';
     }).join("");
 
+    renderCompare(rows);
+
     var latest = S.ops.map(function(o){return o.verifiedAt||"";}).sort().pop();
     foot.innerHTML = (S.stale?'<p><b>Jste offline.</b> Zobrazuji naposledy stažené ceny.</p>':'')+'<p>Provozovatelé nemají veřejné rozhraní s cenami, proto aplikace čte jejich zveřejněné ceníky ze souboru, který se pravidelně kontroluje'+(latest?' (poslední kontrola '+esc(fmtDate(latest))+')':'')+'. Čas se bere z hodin vašeho zařízení přepočtených na český čas, podle něj se přepínají denní a noční sazby.</p>'+
       '<p>Rozhodující je vždy cena v aplikaci provozovatele nebo na stojanu. Odhad za nabití nezahrnuje paušál ani poplatky za stání po vyčerpání volných minut.</p>';
@@ -385,6 +540,11 @@ a{color:var(--accent)}
     var s=document.getElementById("sort-"+S.sort); if(s) s.checked=true;
     document.getElementById("kwh").value=S.kwh;
     document.getElementById("pre").checked=S.pre;
+    var f=document.getElementById("ft-"+S.fuelType); if(f) f.checked=true;
+    var cc=document.getElementById("cc-"+S.cmpCol); if(cc) cc.checked=true;
+    document.getElementById("iceCons").value=S.ice;
+    document.getElementById("evCons").value=S.ev;
+    document.getElementById("ownFuel").value=S.own>0?S.own:"";
   }
   document.addEventListener("change", function(e){
     var t=e.target; if(!t||!t.name&&!t.id) return;
@@ -392,19 +552,46 @@ a{color:var(--accent)}
     else if(t.name==="kw") S.kw=parseInt(t.value,10);
     else if(t.name==="sort") S.sort=t.value;
     else if(t.id==="pre") S.pre=t.checked;
+    else if(t.name==="fuelType") S.fuelType=t.value;
+    else if(t.name==="cmpCol") S.cmpCol=t.value;
     else return;
     savePrefs(); render();
   });
   document.addEventListener("input", function(e){
-    if(e.target && e.target.id==="kwh"){
-      var v=parseFloat(e.target.value); S.kwh = isFinite(v)&&v>0 ? Math.min(v,200) : 0;
-      savePrefs(); render();
-    }
+    var t=e.target; if(!t) return;
+    var v=parseFloat(String(t.value).replace(",","."));
+    if(t.id==="kwh") S.kwh = isFinite(v)&&v>0 ? Math.min(v,200) : 0;
+    else if(t.id==="iceCons") S.ice = isFinite(v)&&v>0 ? Math.min(v,30) : 0;
+    else if(t.id==="evCons") S.ev = isFinite(v)&&v>0 ? Math.min(v,60) : 0;
+    else if(t.id==="ownFuel") S.own = isFinite(v)&&v>0 ? Math.min(v,100) : 0;
+    else return;
+    savePrefs(); render();
   });
   document.addEventListener("click", function(e){
     var b=e.target && e.target.closest ? e.target.closest("[data-toggle]") : null; if(!b) return;
     var id=b.getAttribute("data-toggle"); S.open[id]=!S.open[id]; render();
   });
+  document.addEventListener("toggle", function(e){
+    var d=e.target; if(d && d.getAttribute && d.getAttribute("data-det")) S.open[d.getAttribute("data-det")]=d.open;
+  }, true);
+  /* hover / focus tooltip for the cost chart */
+  (function(){
+    var tip=document.getElementById("cmpTip"); if(!tip) return;
+    function show(row,x,y){
+      tip.textContent=row.getAttribute("data-tip")||""; tip.hidden=false;
+      var w=tip.offsetWidth, h=tip.offsetHeight, vw=document.documentElement.clientWidth;
+      tip.style.left=Math.max(8, Math.min(x+12, vw-w-8))+"px"; tip.style.top=Math.max(8, y-h-10)+"px";
+    }
+    document.addEventListener("mousemove", function(e){
+      var row=e.target.closest ? e.target.closest(".cmp-row") : null;
+      if(row) show(row,e.clientX,e.clientY); else tip.hidden=true;
+    });
+    document.addEventListener("focusin", function(e){
+      var row=e.target.closest ? e.target.closest(".cmp-row") : null;
+      if(row){ var r=row.getBoundingClientRect(); show(row, r.left+r.width/2, r.top); } else tip.hidden=true;
+    });
+    document.addEventListener("scroll", function(){ tip.hidden=true; }, true);
+  })();
 
   loadPrefs(); syncControls(); render();
   setInterval(function(){ var n=pragueNow(); if(n.h*60+n.m!==S.minute) render(); }, 15000);
@@ -414,6 +601,8 @@ a{color:var(--accent)}
   function applyData(d, stale){
     if(!d || !Array.isArray(d.operators)) return false;
     S.ops = d.operators.filter(function(o){ return o && o.id && o.name && Array.isArray(o.tariffs); });
+    S.fuel = (Array.isArray(d.fuel) ? d.fuel : []).filter(function(o){ return o && o.name; })
+               .sort(function(a,b){ return (a.order||0)-(b.order||0); });
     S.status = "ready"; S.stale = !!stale || navigator.onLine===false; render(); return true;
   }
   function loadData(){
