@@ -219,7 +219,7 @@ a{color:var(--accent)}
 
   <section class="compare" aria-labelledby="cmpTitle">
     <h2 id="cmpTitle">Náklady na 100 km</h2>
-    <p class="lead">Kolik stojí 100 km na elektřinu a kolik se spalovacím autem. Ceny nabíjení se berou z nastavení nahoře (způsob platby a výkon DC stanice).</p>
+    <p class="lead">Kolik stojí 100 km na elektřinu a kolik se spalovacím autem. Ceny veřejného nabíjení se berou z nastavení nahoře (způsob platby a výkon DC stanice), cenu domácího nabíjení doplňte sami.</p>
     <div class="cmp-controls">
       <div>
         <label class="lbl" for="iceCons">Spotřeba spalovacího auta</label>
@@ -235,6 +235,10 @@ a{color:var(--accent)}
       <div>
         <label class="lbl" for="evCons">Spotřeba elektromobilu</label>
         <div class="num"><input type="number" id="evCons" min="5" max="60" step="0.5" inputmode="decimal"> <span>kWh/100 km</span></div>
+      </div>
+      <div>
+        <label class="lbl" for="homePrice">Cena domácího nabíjení</label>
+        <div class="num"><input type="number" id="homePrice" min="0" max="50" step="0.1" inputmode="decimal" placeholder="např. 5" style="width:6.6em"> <span>Kč/kWh</span></div>
       </div>
       <fieldset>
         <legend>Nabíjení v grafu</legend>
@@ -259,7 +263,7 @@ a{color:var(--accent)}
 (function(){
   "use strict";
   var S = { ops:null, fuel:[], status:"loading", mode:"free", kw:150, sort:"dc", kwh:50, pre:false, open:{}, minute:-1,
-            ice:7, ev:22, fuelType:"natural95", cmpCol:"DC", own:0 };
+            ice:7, ev:22, fuelType:"natural95", cmpCol:"DC", own:0, home:0 };
   var TZ = "Europe/Prague";
 
   function loadPrefs(){
@@ -275,10 +279,11 @@ a{color:var(--accent)}
       if(["natural95","diesel"].indexOf(p.fuelType)>=0) S.fuelType=p.fuelType;
       if(["AC","DC"].indexOf(p.cmpCol)>=0) S.cmpCol=p.cmpCol;
       if(typeof p.own==="number" && p.own>0 && p.own<=100) S.own=p.own;
+      if(typeof p.home==="number" && p.home>0 && p.home<=50) S.home=p.home;
     }catch(e){}
   }
   function savePrefs(){
-    try{ localStorage.setItem("nabijeni-prefs", JSON.stringify({mode:S.mode,kw:S.kw,sort:S.sort,kwh:S.kwh,pre:S.pre,ice:S.ice,ev:S.ev,fuelType:S.fuelType,cmpCol:S.cmpCol,own:S.own})); }catch(e){}
+    try{ localStorage.setItem("nabijeni-prefs", JSON.stringify({mode:S.mode,kw:S.kw,sort:S.sort,kwh:S.kwh,pre:S.pre,ice:S.ice,ev:S.ev,fuelType:S.fuelType,cmpCol:S.cmpCol,own:S.own,home:S.home})); }catch(e){}
   }
 
   function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
@@ -421,6 +426,7 @@ a{color:var(--accent)}
       items.push({kind:"ev", name:r.op.name, p:pr.p, pMax:hasMax?pr.pMax:null, q:pr.from?"od ":"",
         sub:(col==="AC"?"AC":"DC "+S.kw+" kW")+" · "+fmtPrice(pr)+" Kč/kWh", unitTxt:fmtPrice(pr)+" Kč/kWh", cons:S.ev, cu:"kWh"});
     });
+    if(S.home>0) items.push({kind:"ev", home:true, name:"Domácí nabíjení", p:S.home, pMax:null, q:"", sub:"doma · "+n2(S.home)+" Kč/kWh", unitTxt:n2(S.home)+" Kč/kWh", cons:S.ev, cu:"kWh"});
     var cap=null;
     (S.fuel||[]).forEach(function(f){
       if(f.kind==="cap"){ cap=f; return; }
@@ -438,7 +444,7 @@ a{color:var(--accent)}
     function valTxt(i){ return i.q+n0(i.cost)+(i.costMax?"–"+n0(i.costMax):"")+" Kč"; }
     var ev=items.filter(function(i){return i.kind==="ev";})[0], fu=items.filter(function(i){return i.kind==="fuel";})[0];
     var h='<div class="cmp-stats">';
-    if(ev) h+='<div class="stat"><span class="s-l">Nejlevnější nabíjení ('+esc(col)+')</span><span class="s-v">'+esc(valTxt(ev))+'<small>na 100 km</small></span><span class="s-s">'+esc(ev.name)+' · '+esc(ev.unitTxt)+'</span></div>';
+    if(ev) h+='<div class="stat"><span class="s-l">Nejlevnější nabíjení'+(ev.home?'':' ('+esc(col)+')')+'</span><span class="s-v">'+esc(valTxt(ev))+'<small>na 100 km</small></span><span class="s-s">'+esc(ev.name)+' · '+esc(ev.unitTxt)+'</span></div>';
     if(fu) h+='<div class="stat"><span class="s-l">Nejlevnější '+esc(fname)+'</span><span class="s-v">'+esc(valTxt(fu))+'<small>na 100 km</small></span><span class="s-s">'+esc(fu.name)+' · '+esc(fu.unitTxt)+'</span></div>';
     h+='</div>';
     if(ev && fu){
@@ -459,7 +465,7 @@ a{color:var(--accent)}
     if(missing.length) h+='<p class="cmp-note">Bez ceny pro '+esc(col==="AC"?"AC":"DC")+' v tomto nastavení: '+esc(missing.join(", "))+'.</p>';
     /* table view + sources */
     h+='<details class="cmp-more"'+(S.open._tbl?' open':'')+' data-det="_tbl"><summary>Zobrazit jako tabulku</summary><div class="scroll"><table><thead><tr><th>Síť</th><th>Druh</th><th>Cena za jednotku</th><th>Spotřeba</th><th>Náklady na 100 km</th></tr></thead><tbody>'+
-      items.map(function(i){ return '<tr><td>'+esc(i.name)+'</td><td>'+(i.kind==="ev"?"nabíjení "+esc(col):esc(fname))+'</td><td>'+esc(i.unitTxt)+'</td><td>'+n1(i.cons)+' '+i.cu+'</td><td>'+esc(valTxt(i))+'</td></tr>'; }).join("")+'</tbody></table></div></details>';
+      items.map(function(i){ return '<tr><td>'+esc(i.name)+'</td><td>'+(i.kind==="ev"?(i.home?"nabíjení doma":"nabíjení "+esc(col)):esc(fname))+'</td><td>'+esc(i.unitTxt)+'</td><td>'+n1(i.cons)+' '+i.cu+'</td><td>'+esc(valTxt(i))+'</td></tr>'; }).join("")+'</tbody></table></div></details>';
     var brands=(S.fuel||[]).filter(function(f){return f.kind!=="cap";});
     if(brands.length || cap){
       h+='<details class="cmp-more"'+(S.open._src?' open':'')+' data-det="_src"><summary>Odkud jsou ceny paliv</summary><ul class="notes">';
@@ -545,6 +551,7 @@ a{color:var(--accent)}
     document.getElementById("iceCons").value=S.ice;
     document.getElementById("evCons").value=S.ev;
     document.getElementById("ownFuel").value=S.own>0?S.own:"";
+    document.getElementById("homePrice").value=S.home>0?S.home:"";
   }
   document.addEventListener("change", function(e){
     var t=e.target; if(!t||!t.name&&!t.id) return;
@@ -564,6 +571,7 @@ a{color:var(--accent)}
     else if(t.id==="iceCons") S.ice = isFinite(v)&&v>0 ? Math.min(v,30) : 0;
     else if(t.id==="evCons") S.ev = isFinite(v)&&v>0 ? Math.min(v,60) : 0;
     else if(t.id==="ownFuel") S.own = isFinite(v)&&v>0 ? Math.min(v,100) : 0;
+    else if(t.id==="homePrice") S.home = isFinite(v)&&v>0 ? Math.min(v,50) : 0;
     else return;
     savePrefs(); render();
   });
