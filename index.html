@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ceny nabíjení elektromobilů</title>
+<meta name="description" content="Aktuální ceny AC a DC nabíjení elektromobilů u PRE, ČEZ, E.ON, innogy, Ionity, Tesly a Shell Recharge.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Nabíjení">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f1f4f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1716" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<style>
+:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+body{margin:0}
+[hidden]{display:none!important}
+img{max-width:100%}
+/* Layout: one column. Live clock and cheapest-now summary on top, a control bar,
+   then a price board: one row per operator with two totem-style price tiles (AC, DC). */
+:root{
+  --bg:#f1f4f1; --surface:#ffffff; --ink:#132422; --muted:#586a66; --line:#d3dbd7;
+  --accent:#0a6e5c; --accent-ink:#ffffff;
+  --tile:#14302c; --tile-ink:#f1f6f3; --tile-sub:#a9c2bc; --tile-line:#14302c;
+  --tile-best:#7ee2b8; --tile-day:#f5c16c; --tile-night:#b3bdff;
+  --ok-bg:#dff3e6; --ok-ink:#0b5b3b; --warn-bg:#fdeed0; --warn-ink:#7a4a00; --info-bg:#e3e9f6; --info-ink:#2c3c7a;
+  --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  --body:"Barlow","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0f1716; --surface:#172221; --ink:#e7efec; --muted:#93a5a1; --line:#2a3a37;
+  --accent:#4fd1b3; --accent-ink:#06211b;
+  --tile:#0a1211; --tile-ink:#f1f6f3; --tile-sub:#9bb3ad; --tile-line:#2a3a37;
+  --tile-best:#7ee2b8; --tile-day:#f5c16c; --tile-night:#b3bdff;
+  --ok-bg:#123a2a; --ok-ink:#8be0b4; --warn-bg:#3a2c10; --warn-ink:#f2c979; --info-bg:#1e2747; --info-ink:#b3bdff;
+  color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#0f1716; --surface:#172221; --ink:#e7efec; --muted:#93a5a1; --line:#2a3a37;
+  --accent:#4fd1b3; --accent-ink:#06211b;
+  --tile:#0a1211; --tile-ink:#f1f6f3; --tile-sub:#9bb3ad; --tile-line:#2a3a37;
+  --tile-best:#7ee2b8; --tile-day:#f5c16c; --tile-night:#b3bdff;
+  --ok-bg:#123a2a; --ok-ink:#8be0b4; --warn-bg:#3a2c10; --warn-ink:#f2c979; --info-bg:#1e2747; --info-ink:#b3bdff;
+  color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:28px 48px;display:flex;flex-direction:column;gap:22px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(2rem,6vw,2.9rem);line-height:1;margin:0;letter-spacing:.005em;text-wrap:balance}
+.lead{margin:0;color:var(--muted);max-width:62ch}
+.top{display:flex;flex-direction:column;gap:10px}
+.now{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;border-top:2px solid var(--ink);padding-top:12px}
+.clock{font-family:var(--display);font-weight:600;font-size:1.7rem;font-variant-numeric:tabular-nums;line-height:1}
+.clock small{font-family:var(--body);font-weight:500;font-size:.85rem;color:var(--muted);margin-left:6px}
+.best-line{margin:0;display:flex;flex-wrap:wrap;gap:4px 18px;color:var(--muted);font-size:.95rem}
+.best-line b{color:var(--ink);font-weight:600}
+
+.controls{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:flex-end;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+legend,.lbl{display:block;padding:0;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.seg{display:flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg label{padding:7px 12px;font-size:.92rem;font-weight:500;cursor:pointer;border-right:1px solid var(--line);background:var(--surface);color:var(--ink);user-select:none}
+.seg label:last-of-type{border-right:0}
+.seg input:checked + label{background:var(--accent);color:var(--accent-ink)}
+.seg input:focus-visible + label{outline:2px solid var(--ink);outline-offset:-2px}
+.num{display:flex;align-items:center;gap:6px}
+.num input{width:5.2em;font:inherit;font-variant-numeric:tabular-nums;padding:6px 8px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--ink)}
+.num input:focus-visible,.more:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.check{display:flex;align-items:center;gap:8px;font-size:.92rem;padding-bottom:7px}
+.check input{width:17px;height:17px;accent-color:var(--accent)}
+
+.board{display:flex;flex-direction:column;gap:12px}
+.op{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.op-head{display:grid;grid-template-columns:minmax(0,1fr) 205px 205px;gap:12px;align-items:stretch}
+.op-id{min-width:0;display:flex;flex-direction:column;gap:4px}
+.op-id h2{font-family:var(--display);font-weight:700;font-size:1.65rem;line-height:1.05;margin:0}
+.op-net{margin:0;color:var(--muted);font-size:.92rem}
+.op-meta{margin:2px 0 0;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:.82rem;color:var(--muted)}
+.op-note{margin:2px 0 0;font-size:.88rem;color:var(--ink);max-width:58ch}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.74rem;font-weight:600;letter-spacing:.02em}
+.badge.official{background:var(--ok-bg);color:var(--ok-ink)}
+.badge.secondary{background:var(--info-bg);color:var(--info-ink)}
+.badge.partial{background:var(--warn-bg);color:var(--warn-ink)}
+
+.tile{background:var(--tile);color:var(--tile-ink);border:1px solid var(--tile-line);border-radius:5px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.tile-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.72rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--tile-sub)}
+.tile-top span{white-space:nowrap}
+.tag{background:var(--tile-best);color:#06211b;border-radius:3px;padding:1px 5px;letter-spacing:.03em;font-size:.66rem}
+.price{font-family:var(--display);font-weight:700;font-size:2.35rem;line-height:1;font-variant-numeric:tabular-nums;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 6px}
+.price .unit{font-family:var(--body);font-weight:500;font-size:.78rem;color:var(--tile-sub)}
+.price.long{font-size:1.75rem}
+.tile.best .price{color:var(--tile-best)}
+.tile.na .price{color:var(--tile-sub)}
+.t-sub{font-size:.84rem;color:var(--tile-ink);overflow-wrap:anywhere}
+.t-tod{font-size:.8rem;font-weight:500}
+.t-tod.day{color:var(--tile-day)} .t-tod.night{color:var(--tile-night)} .t-tod.mix{color:var(--tile-sub)}
+.t-est{font-size:.8rem;color:var(--tile-sub);font-variant-numeric:tabular-nums;margin-top:auto;padding-top:4px}
+
+.more{align-self:flex-start;font:inherit;font-size:.88rem;font-weight:600;color:var(--accent);background:none;border:0;padding:2px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.detail{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:12px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:7px 10px 7px 0;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
+th{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.t-name{white-space:normal;min-width:11em}
+td small{display:block;color:var(--muted);white-space:normal}
+tr.sel td{font-weight:600}
+.notes{margin:0;padding-left:18px;font-size:.9rem;max-width:70ch;display:flex;flex-direction:column;gap:4px}
+.src{margin:0;font-size:.86rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 14px}
+a{color:var(--accent)}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:6px;padding:28px 18px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--ink);font-family:var(--display);font-size:1.4rem;margin-bottom:4px}
+.foot{font-size:.88rem;color:var(--muted);max-width:72ch;display:flex;flex-direction:column;gap:6px}
+.foot p{margin:0}
+
+@media (max-width:720px){
+  .op-head{grid-template-columns:1fr 1fr}
+  .op-id{grid-column:1/-1}
+  .price{font-size:2rem} .price.long{font-size:1.45rem}
+  .controls{padding:12px}
+}
+@media (prefers-reduced-motion:no-preference){ .tile{transition:background-color .2s} }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Ceny nabíjení elektromobilů</h1>
+    <p class="lead">Kolik teď stojí kilowatthodina na střídavém (AC) a stejnosměrném (DC) nabíjení u sedmi sítí v Česku. Ceny jsou s DPH a přepínají se podle aktuálního času tam, kde má provozovatel denní a noční sazbu.</p>
+    <div class="now">
+      <div class="clock" id="clock">--:--<small></small></div>
+      <p class="best-line" id="bestLine"></p>
+    </div>
+  </header>
+
+  <section class="controls" aria-label="Nastavení srovnání">
+    <fieldset>
+      <legend>Jak platím</legend>
+      <div class="seg">
+        <input type="radio" name="mode" id="mode-adhoc" value="adhoc"><label for="mode-adhoc">Bez registrace</label>
+        <input type="radio" name="mode" id="mode-free" value="free"><label for="mode-free">Registrace zdarma</label>
+        <input type="radio" name="mode" id="mode-paid" value="paid"><label for="mode-paid">S paušálem</label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Výkon DC stanice</legend>
+      <div class="seg">
+        <input type="radio" name="kw" id="kw-50" value="50"><label for="kw-50">50 kW</label>
+        <input type="radio" name="kw" id="kw-150" value="150"><label for="kw-150">150 kW</label>
+        <input type="radio" name="kw" id="kw-300" value="300"><label for="kw-300">300 kW</label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Řadit podle</legend>
+      <div class="seg">
+        <input type="radio" name="sort" id="sort-dc" value="dc"><label for="sort-dc">ceny DC</label>
+        <input type="radio" name="sort" id="sort-ac" value="ac"><label for="sort-ac">ceny AC</label>
+        <input type="radio" name="sort" id="sort-name" value="name"><label for="sort-name">názvu</label>
+      </div>
+    </fieldset>
+    <div>
+      <label class="lbl" for="kwh">Odhad za nabití</label>
+      <div class="num"><input type="number" id="kwh" min="0" max="200" step="5" inputmode="numeric"> <span>kWh</span></div>
+    </div>
+    <label class="check" for="pre"><input type="checkbox" id="pre"> Odebírám elektřinu nebo plyn od PRE</label>
+  </section>
+
+  <main class="board" id="board" aria-live="polite">
+    <div class="empty"><b>Načítám ceníky…</b>Za okamžik se tu objeví ceny AC a DC nabíjení u PRE, ČEZ, E.ON, innogy, Ionity, Tesly a Shell Recharge.</div>
+  </main>
+
+  <footer class="foot" id="foot"></footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var S = { ops:null, status:"loading", mode:"free", kw:150, sort:"dc", kwh:50, pre:false, open:{}, minute:-1 };
+  var TZ = "Europe/Prague";
+
+  function loadPrefs(){
+    try{
+      var p = JSON.parse(localStorage.getItem("nabijeni-prefs") || "{}");
+      if(["adhoc","free","paid"].indexOf(p.mode)>=0) S.mode=p.mode;
+      if([50,150,300].indexOf(p.kw)>=0) S.kw=p.kw;
+      if(["dc","ac","name"].indexOf(p.sort)>=0) S.sort=p.sort;
+      if(typeof p.kwh==="number" && p.kwh>=0 && p.kwh<=200) S.kwh=p.kwh;
+      S.pre = !!p.pre;
+    }catch(e){}
+  }
+  function savePrefs(){
+    try{ localStorage.setItem("nabijeni-prefs", JSON.stringify({mode:S.mode,kw:S.kw,sort:S.sort,kwh:S.kwh,pre:S.pre})); }catch(e){}
+  }
+
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+  function safeUrl(u){ return (typeof u==="string" && /^https:\/\//.test(u)) ? u : null; }
+  function n2(x){ return Number(x).toLocaleString("cs-CZ",{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function n0(x){ return Math.round(x).toLocaleString("cs-CZ"); }
+  function isNum(x){ return typeof x==="number" && isFinite(x); }
+  function fmtDate(iso){ var m=/^(\d{4})-(\d{2})-(\d{2})/.exec(iso||""); return m ? (+m[3])+". "+(+m[2])+". "+m[1] : ""; }
+
+  function pragueNow(){
+    var parts = new Intl.DateTimeFormat("cs-CZ",{timeZone:TZ,hour:"2-digit",minute:"2-digit",weekday:"long",hour12:false}).formatToParts(new Date());
+    var o={}; parts.forEach(function(p){o[p.type]=p.value;});
+    var h = parseInt(o.hour,10)%24, m = parseInt(o.minute,10);
+    return {h:h, m:m, frac:h+m/60, weekday:o.weekday||""};
+  }
+  function inWindow(w,f){ return w.from<w.to ? (f>=w.from && f<w.to) : (f>=w.from || f<w.to); }
+
+  /* Price valid right now for one rate (handles day/night windows). */
+  function priceNow(rate, now){
+    if(!rate) return null;
+    var out = {p:rate.p, pMax:rate.pMax, from:!!rate.from, approx:!!rate.approx, na:rate.na||null};
+    if(Array.isArray(rate.tod) && rate.tod.length){
+      var hit=null;
+      for(var i=0;i<rate.tod.length;i++){ if(inWindow(rate.tod[i], now.frac)){ hit=rate.tod[i]; break; } }
+      if(hit){
+        out.p=hit.p; out.pMax=hit.pMax; out.todLabel=hit.label; out.todKind=hit.kind||"mix"; out.until=hit.to;
+        for(var j=0;j<rate.tod.length;j++){ var w=rate.tod[j]; if(w!==hit && inWindow(w, (hit.to%24)+0.01)){ out.next=w; break; } }
+      }else{
+        out.todLabel=rate.todFallback||"sazba se liší podle lokality"; out.todKind="mix";
+      }
+    }
+    return out;
+  }
+  function rateFor(tariff, col){
+    var rates = (tariff.rates||[]).filter(function(r){return r.kind===col;});
+    if(!rates.length) return null;
+    if(col==="AC") return rates[0];
+    var hit = rates.filter(function(r){ return (r.minKw==null||S.kw>=r.minKw) && (r.maxKw==null||S.kw<=r.maxKw); })[0];
+    if(hit) return hit;
+    return rates.slice().sort(function(a,b){return (b.maxKw||1e9)-(a.maxKw||1e9);})[0];
+  }
+  function monthlyFee(t){ var f=+t.fee||0; return t.feePeriod==="rok" ? f/12 : f; }
+  function allowed(t){
+    if(t.requires==="pre" && !S.pre) return false;
+    if(S.mode==="adhoc") return t.tier==="adhoc";
+    if(S.mode==="free") return t.tier==="adhoc" || t.tier==="free";
+    return true;
+  }
+  /* Cheapest applicable tariff for one operator and one column. */
+  function pickCell(op, col, now){
+    var ts = (op.tariffs||[]);
+    var cand = ts.filter(allowed), fallback=false;
+    if(!cand.length){ cand = ts.filter(function(t){return t.tier==="free" && !(t.requires==="pre" && !S.pre);}); fallback = cand.length>0; }
+    var best=null, firstNa=null;
+    cand.forEach(function(t){
+      var r = rateFor(t,col); if(!r) return;
+      var pr = priceNow(r, now);
+      if(!isNum(pr.p)){ if(!firstNa) firstNa={tariff:t,rate:r,price:pr,fallback:fallback}; return; }
+      if(!best || pr.p<best.price.p || (pr.p===best.price.p && monthlyFee(t)<monthlyFee(best.tariff))) best={tariff:t,rate:r,price:pr,fallback:fallback};
+    });
+    return best || firstNa || null;
+  }
+
+  function fmtPrice(pr){
+    var s = n2(pr.p);
+    if(isNum(pr.pMax) && pr.pMax!==pr.p) s += "–"+n2(pr.pMax);
+    return (pr.from?"od ":"")+s;
+  }
+  function feeText(t){
+    if(+t.fee>0) return n0(t.fee)+" Kč/"+(t.feePeriod==="rok"?"rok":"měs.");
+    return t.tier==="adhoc" ? "bez registrace" : "bez paušálu";
+  }
+  function hourText(h){ return (h%24)+":00"; }
+
+  function tileHTML(col, cell, isBest, op){
+    var label = col==="AC" ? "AC" : "DC · "+S.kw+" kW";
+    if(!cell || !isNum(cell.price.p)){
+      var why = cell && cell.price.na ? cell.price.na : (col==="AC" ? (op.acNote||"AC stanice nenabízí") : (op.dcNote||"cena není k dispozici"));
+      return '<div class="tile na"><div class="tile-top"><span>'+label+'</span></div>'+
+             '<div class="price">—</div><div class="t-sub">'+esc(why)+'</div></div>';
+    }
+    var pr=cell.price, t=cell.tariff, txt=fmtPrice(pr);
+    var h = '<div class="tile'+(isBest?" best":"")+'"><div class="tile-top"><span>'+label+'</span>'+(isBest?'<span class="tag">nejnižší</span>':'')+'</div>';
+    h += '<div class="price'+(txt.length>6?" long":"")+'">'+esc(txt)+'<span class="unit">Kč/kWh</span></div>';
+    h += '<div class="t-sub">'+esc(t.name)+' · '+esc(feeText(t))+(cell.fallback?' (jen přes aplikaci)':'')+'</div>';
+    if(pr.todLabel){
+      var tod = pr.todLabel + (pr.until!=null ? " do "+hourText(pr.until) : "");
+      if(pr.next && isNum(pr.next.p)) tod += ", pak "+fmtPrice({p:pr.next.p,pMax:pr.next.pMax});
+      h += '<div class="t-tod '+esc(pr.todKind)+'">'+esc(tod)+'</div>';
+    }
+    if(pr.approx) h += '<div class="t-tod mix">orientačně, liší se podle lokality</div>';
+    if(S.kwh>0){
+      var est = "≈ "+(pr.from?"od ":"")+n0(pr.p*S.kwh)+(isNum(pr.pMax)&&pr.pMax!==pr.p ? "–"+n0(pr.pMax*S.kwh) : "")+" Kč za "+n0(S.kwh)+" kWh";
+      h += '<div class="t-est">'+esc(est)+'</div>';
+    }
+    return h+'</div>';
+  }
+
+  function rateCellText(r){
+    if(!r) return "—";
+    if(Array.isArray(r.tod) && r.tod.length){
+      return r.tod.map(function(w){ return esc(w.short||w.label)+" "+esc(isNum(w.p)?fmtPrice({p:w.p,pMax:w.pMax}):"—"); }).join("<br>");
+    }
+    if(!isNum(r.p)) return esc(r.na||"—");
+    return esc(fmtPrice({p:r.p,pMax:r.pMax,from:r.from}));
+  }
+  function detailHTML(op, picked){
+    var cols=[], seen={};
+    (op.tariffs||[]).forEach(function(t){ (t.rates||[]).forEach(function(r){ var k=r.kind+"|"+(r.band||""); if(!seen[k]){seen[k]=1; cols.push({k:k,kind:r.kind,band:r.band||""});} }); });
+    var h='<div class="detail"><div class="scroll"><table><thead><tr><th>Tarif</th><th>Paušál</th>';
+    cols.forEach(function(c){ h+='<th>'+esc(c.kind)+(c.band?' · '+esc(c.band):'')+'</th>'; });
+    h+='</tr></thead><tbody>';
+    (op.tariffs||[]).forEach(function(t){
+      var sel = picked.indexOf(t.id)>=0;
+      h+='<tr'+(sel?' class="sel"':'')+'><td class="t-name">'+esc(t.name)+(t.note?'<small>'+esc(t.note)+'</small>':'')+'</td><td>'+esc(feeText(t))+'</td>';
+      cols.forEach(function(c){
+        var r=(t.rates||[]).filter(function(x){return x.kind+"|"+(x.band||"")===c.k;})[0];
+        h+='<td>'+rateCellText(r)+'</td>';
+      });
+      h+='</tr>';
+    });
+    h+='</tbody></table></div>';
+    if(Array.isArray(op.notes) && op.notes.length){ h+='<ul class="notes">'+op.notes.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul>'; }
+    var links=(op.sources||[]).map(function(s){ var u=safeUrl(s.url); return u?'<a href="'+esc(u)+'" target="_blank" rel="noopener noreferrer">'+esc(s.label||u)+'</a>':''; }).filter(Boolean);
+    if(links.length) h+='<p class="src"><span>Zdroje:</span>'+links.join("")+'</p>';
+    return h+'</div>';
+  }
+
+  var STATUS = {official:"oficiální ceník", secondary:"orientační údaje", partial:"ověřeno částečně"};
+
+  function render(){
+    var now = pragueNow();
+    S.minute = now.h*60+now.m;
+    var clock = document.getElementById("clock");
+    clock.firstChild.nodeValue = (now.h<10?"0":"")+now.h+":"+(now.m<10?"0":"")+now.m;
+    clock.querySelector("small").textContent = now.weekday+" · čas v Česku";
+
+    var board = document.getElementById("board"), bestLine=document.getElementById("bestLine"), foot=document.getElementById("foot");
+    if(!S.ops || !S.ops.length){
+      bestLine.textContent="";
+      var msg = S.status==="loading" ? ['Načítám ceníky…','Za okamžik se tu objeví ceny AC a DC nabíjení u PRE, ČEZ, E.ON, innogy, Ionity, Tesly a Shell Recharge.']
+              : S.status==="nodb" ? ['Ceníky se nepodařilo načíst','Zkontrolujte připojení k internetu a stránku načtěte znovu.']
+              : ['Zatím tu nejsou žádné ceníky','Soubor ceny.json neobsahuje žádného provozovatele.'];
+      board.innerHTML = '<div class="empty"><b>'+esc(msg[0])+'</b>'+esc(msg[1])+'</div>';
+      foot.innerHTML=""; return;
+    }
+    var rows = S.ops.map(function(op){ return {op:op, ac:pickCell(op,"AC",now), dc:pickCell(op,"DC",now)}; });
+    function val(c){ return c && isNum(c.price.p) ? c.price.p : Infinity; }
+    var minAC = Math.min.apply(null, rows.map(function(r){return val(r.ac);}));
+    var minDC = Math.min.apply(null, rows.map(function(r){return val(r.dc);}));
+    rows.sort(function(a,b){
+      if(S.sort==="name") return String(a.op.name).localeCompare(String(b.op.name),"cs");
+      var k = S.sort==="ac" ? "ac" : "dc", d = val(a[k])-val(b[k]);
+      if(d) return d===d ? d : 0;
+      return (a.op.order||0)-(b.op.order||0);
+    });
+
+    var bl=[];
+    rows.forEach(function(r){ if(isFinite(minAC) && val(r.ac)===minAC && !bl.ac){ bl.ac='<span>Nejnižší AC teď: <b>'+esc(r.op.name)+' '+esc(fmtPrice(r.ac.price))+' Kč</b></span>'; } });
+    rows.forEach(function(r){ if(isFinite(minDC) && val(r.dc)===minDC && !bl.dc){ bl.dc='<span>Nejnižší DC '+S.kw+' kW teď: <b>'+esc(r.op.name)+' '+esc(fmtPrice(r.dc.price))+' Kč</b></span>'; } });
+    bestLine.innerHTML = (bl.ac||"")+(bl.dc||"");
+
+    board.innerHTML = rows.map(function(r){
+      var op=r.op, open=!!S.open[op.id];
+      var meta = '<span class="badge '+esc(STATUS[op.status]?op.status:"secondary")+'">'+esc(STATUS[op.status]||STATUS.secondary)+'</span>';
+      if(op.validFrom) meta += '<span>ceník od '+esc(fmtDate(op.validFrom))+'</span>';
+      if(op.asOf) meta += '<span>údaje z '+esc(fmtDate(op.asOf))+'</span>';
+      if(op.verifiedAt) meta += '<span>ověřeno '+esc(fmtDate(op.verifiedAt))+'</span>';
+      var picked=[]; if(r.ac&&r.ac.tariff) picked.push(r.ac.tariff.id); if(r.dc&&r.dc.tariff) picked.push(r.dc.tariff.id);
+      return '<article class="op"><div class="op-head"><div class="op-id"><h2>'+esc(op.name)+'</h2>'+
+        (op.network?'<p class="op-net">'+esc(op.network)+'</p>':'')+
+        '<p class="op-meta">'+meta+'</p>'+
+        (op.rowNote?'<p class="op-note">'+esc(op.rowNote)+'</p>':'')+'</div>'+
+        tileHTML("AC", r.ac, isFinite(minAC)&&val(r.ac)===minAC, op)+
+        tileHTML("DC", r.dc, isFinite(minDC)&&val(r.dc)===minDC, op)+'</div>'+
+        '<button class="more" type="button" data-toggle="'+esc(op.id)+'" aria-expanded="'+(open?"true":"false")+'">'+(open?"Skrýt tarify a zdroje":"Všechny tarify a zdroje")+'</button>'+
+        (open?detailHTML(op,picked):'')+'</article>';
+    }).join("");
+
+    var latest = S.ops.map(function(o){return o.verifiedAt||"";}).sort().pop();
+    foot.innerHTML = (S.stale?'<p><b>Jste offline.</b> Zobrazuji naposledy stažené ceny.</p>':'')+'<p>Provozovatelé nemají veřejné rozhraní s cenami, proto aplikace čte jejich zveřejněné ceníky ze souboru, který se pravidelně kontroluje'+(latest?' (poslední kontrola '+esc(fmtDate(latest))+')':'')+'. Čas se bere z hodin vašeho zařízení přepočtených na český čas, podle něj se přepínají denní a noční sazby.</p>'+
+      '<p>Rozhodující je vždy cena v aplikaci provozovatele nebo na stojanu. Odhad za nabití nezahrnuje paušál ani poplatky za stání po vyčerpání volných minut.</p>';
+  }
+
+  function syncControls(){
+    var m=document.getElementById("mode-"+S.mode); if(m) m.checked=true;
+    var k=document.getElementById("kw-"+S.kw); if(k) k.checked=true;
+    var s=document.getElementById("sort-"+S.sort); if(s) s.checked=true;
+    document.getElementById("kwh").value=S.kwh;
+    document.getElementById("pre").checked=S.pre;
+  }
+  document.addEventListener("change", function(e){
+    var t=e.target; if(!t||!t.name&&!t.id) return;
+    if(t.name==="mode") S.mode=t.value;
+    else if(t.name==="kw") S.kw=parseInt(t.value,10);
+    else if(t.name==="sort") S.sort=t.value;
+    else if(t.id==="pre") S.pre=t.checked;
+    else return;
+    savePrefs(); render();
+  });
+  document.addEventListener("input", function(e){
+    if(e.target && e.target.id==="kwh"){
+      var v=parseFloat(e.target.value); S.kwh = isFinite(v)&&v>0 ? Math.min(v,200) : 0;
+      savePrefs(); render();
+    }
+  });
+  document.addEventListener("click", function(e){
+    var b=e.target && e.target.closest ? e.target.closest("[data-toggle]") : null; if(!b) return;
+    var id=b.getAttribute("data-toggle"); S.open[id]=!S.open[id]; render();
+  });
+
+  loadPrefs(); syncControls(); render();
+  setInterval(function(){ var n=pragueNow(); if(n.h*60+n.m!==S.minute) render(); }, 15000);
+
+  /* Prices come from ceny.json next to this page; the last good copy is kept for offline use. */
+  var DATA_URL = "ceny.json", CACHE_KEY = "nabijeni-data";
+  function applyData(d, stale){
+    if(!d || !Array.isArray(d.operators)) return false;
+    S.ops = d.operators.filter(function(o){ return o && o.id && o.name && Array.isArray(o.tariffs); });
+    S.status = "ready"; S.stale = !!stale || navigator.onLine===false; render(); return true;
+  }
+  function loadData(){
+    return fetch(DATA_URL+"?t="+Date.now(), {cache:"no-store"})
+      .then(function(r){ if(!r.ok) throw new Error("http"); return r.json(); })
+      .then(function(d){ if(applyData(d,false)){ try{ localStorage.setItem(CACHE_KEY, JSON.stringify(d)); }catch(e){} } else { throw new Error("shape"); } })
+      .catch(function(){
+        if(S.ops && S.ops.length){ S.stale=true; render(); return; }
+        var c=null; try{ c=JSON.parse(localStorage.getItem(CACHE_KEY)||"null"); }catch(e){}
+        if(!applyData(c,true)){ S.status="nodb"; render(); }
+      });
+  }
+  loadData();
+  setInterval(loadData, 30*60*1000);
+  document.addEventListener("visibilitychange", function(){ if(!document.hidden) loadData(); });
+  if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js").catch(function(){}); }
+})();
+</script>
+</body>
+</html>

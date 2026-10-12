@@ -1,0 +1,914 @@
+{
+ "updatedAt": "2026-10-12",
+ "operators": [
+  {
+   "id": "pre",
+   "name": "PRE",
+   "network": "PRE Point · Pražská energetika",
+   "order": 1,
+   "status": "official",
+   "validFrom": "2025-12-01",
+   "verifiedAt": "2026-10-12",
+   "tariffs": [
+    {
+     "id": "adhoc",
+     "name": "Jednorázově (QR kód, karta)",
+     "tier": "adhoc",
+     "fee": 0,
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "do 49 kW",
+       "p": 10
+      },
+      {
+       "kind": "DC",
+       "band": "50–149 kW",
+       "minKw": 0,
+       "maxKw": 149,
+       "p": 13
+      },
+      {
+       "kind": "DC",
+       "band": "od 150 kW",
+       "minKw": 150,
+       "p": 15
+      }
+     ]
+    },
+    {
+     "id": "start",
+     "name": "Charge Start",
+     "tier": "free",
+     "fee": 0,
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "do 49 kW",
+       "p": 9
+      },
+      {
+       "kind": "DC",
+       "band": "50–149 kW",
+       "minKw": 0,
+       "maxKw": 149,
+       "p": 12
+      },
+      {
+       "kind": "DC",
+       "band": "od 150 kW",
+       "minKw": 150,
+       "p": 14
+      }
+     ]
+    },
+    {
+     "id": "silver-pre",
+     "name": "Charge Silver pro odběratele PRE",
+     "tier": "free",
+     "fee": 0,
+     "requires": "pre",
+     "note": "jen s elektřinou nebo plynem od Skupiny PRE",
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "do 49 kW",
+       "p": 8
+      },
+      {
+       "kind": "DC",
+       "band": "50–149 kW",
+       "minKw": 0,
+       "maxKw": 149,
+       "p": 11
+      },
+      {
+       "kind": "DC",
+       "band": "od 150 kW",
+       "minKw": 150,
+       "p": 13
+      }
+     ]
+    },
+    {
+     "id": "silver",
+     "name": "Charge Silver",
+     "tier": "paid",
+     "fee": 150,
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "do 49 kW",
+       "p": 8
+      },
+      {
+       "kind": "DC",
+       "band": "50–149 kW",
+       "minKw": 0,
+       "maxKw": 149,
+       "p": 11
+      },
+      {
+       "kind": "DC",
+       "band": "od 150 kW",
+       "minKw": 150,
+       "p": 13
+      }
+     ]
+    },
+    {
+     "id": "gold",
+     "name": "Charge Gold",
+     "tier": "paid",
+     "fee": 150,
+     "requires": "pre",
+     "note": "jen s elektřinou nebo plynem od Skupiny PRE",
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "do 49 kW",
+       "p": 7
+      },
+      {
+       "kind": "DC",
+       "band": "50–149 kW",
+       "minKw": 0,
+       "maxKw": 149,
+       "p": 10
+      },
+      {
+       "kind": "DC",
+       "band": "od 150 kW",
+       "minKw": 150,
+       "p": 12
+      }
+     ]
+    },
+    {
+     "id": "night",
+     "name": "Charge Night",
+     "tier": "paid",
+     "fee": 300,
+     "note": "AC stání 22:00–6:00 bez poplatku",
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "do 49 kW",
+       "p": 8
+      },
+      {
+       "kind": "DC",
+       "band": "50–149 kW",
+       "minKw": 0,
+       "maxKw": 149,
+       "p": 11
+      },
+      {
+       "kind": "DC",
+       "band": "od 150 kW",
+       "minKw": 150,
+       "p": 13
+      }
+     ]
+    },
+    {
+     "id": "platinum",
+     "name": "Charge Platinum",
+     "tier": "paid",
+     "fee": 300,
+     "note": "včetně asistenčních služeb",
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "do 49 kW",
+       "p": 7
+      },
+      {
+       "kind": "DC",
+       "band": "50–149 kW",
+       "minKw": 0,
+       "maxKw": 149,
+       "p": 10
+      },
+      {
+       "kind": "DC",
+       "band": "od 150 kW",
+       "minKw": 150,
+       "p": 11
+      }
+     ]
+    }
+   ],
+   "notes": [
+    "Po volných minutách se platí za stání: AC po 180 min (Platinum a Night 240 min) 0,50–1 Kč/min, DC po 60 min (Platinum 90 min) 1–2 Kč/min, UFC po 30 min (Platinum 60 min) 2 Kč/min.",
+    "Placené tarify se začnou účtovat od 1. dne měsíce následujícího po uzavření smlouvy."
+   ],
+   "sources": [
+    {
+     "label": "Ceník PRE Point od 1. 12. 2025 (PDF)",
+     "url": "https://www.pre.cz/Files/emobilita/cenik/cenik-dobijeni-v-siti-pre-point-aktualne-platny/"
+    },
+    {
+     "label": "Jednorázové dobíjení PRE",
+     "url": "https://www.pre.cz/cs/domacnosti/emobilita/verejne-dobijeni/chci-dobijet-jednorazove/"
+    }
+   ]
+  },
+  {
+   "id": "cez",
+   "name": "ČEZ",
+   "network": "futurego",
+   "order": 2,
+   "status": "official",
+   "validFrom": "2026-06-01",
+   "verifiedAt": "2026-10-12",
+   "tariffs": [
+    {
+     "id": "adhoc",
+     "name": "Neregistrovaný",
+     "tier": "adhoc",
+     "fee": 0,
+     "note": "ceník jednorázového dobíjení od 1. 4. 2026",
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "do 49 kW",
+       "p": 11.9
+      },
+      {
+       "kind": "DC",
+       "band": "50–149 kW",
+       "minKw": 0,
+       "maxKw": 149,
+       "p": 16.9
+      },
+      {
+       "kind": "DC",
+       "band": "od 150 kW",
+       "minKw": 150,
+       "p": 22.9
+      }
+     ]
+    },
+    {
+     "id": "basic",
+     "name": "Basic",
+     "tier": "free",
+     "fee": 0,
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "do 49 kW",
+       "p": 9.9
+      },
+      {
+       "kind": "DC",
+       "band": "50–149 kW",
+       "minKw": 0,
+       "maxKw": 149,
+       "p": 12.9
+      },
+      {
+       "kind": "DC",
+       "band": "od 150 kW",
+       "minKw": 150,
+       "p": 15.9
+      }
+     ]
+    },
+    {
+     "id": "standard",
+     "name": "Standard",
+     "tier": "paid",
+     "fee": 100,
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "do 49 kW",
+       "p": 9.9
+      },
+      {
+       "kind": "DC",
+       "band": "50–149 kW",
+       "minKw": 0,
+       "maxKw": 149,
+       "p": 12.4
+      },
+      {
+       "kind": "DC",
+       "band": "od 150 kW",
+       "minKw": 150,
+       "p": 12.4
+      }
+     ]
+    },
+    {
+     "id": "premium",
+     "name": "Premium",
+     "tier": "paid",
+     "fee": 300,
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "do 49 kW",
+       "p": 9.9
+      },
+      {
+       "kind": "DC",
+       "band": "50–149 kW",
+       "minKw": 0,
+       "maxKw": 149,
+       "p": 11.4
+      },
+      {
+       "kind": "DC",
+       "band": "od 150 kW",
+       "minKw": 150,
+       "p": 11.4
+      }
+     ]
+    }
+   ],
+   "notes": [
+    "Pásma se řídí výkonem stanice: do 49 kW, do 149 kW a od 150 kW.",
+    "Obsazení stanice 2 Kč/min od 481. minuty (do 49 kW), 91. minuty (do 149 kW) nebo 46. minuty (od 150 kW), případně od 11. minuty po ukončení dobíjení."
+   ],
+   "sources": [
+    {
+     "label": "Ceník futurego",
+     "url": "https://futurego.cz/cs/verejne-dobijeni/cenik"
+    }
+   ]
+  },
+  {
+   "id": "eon",
+   "name": "E.ON",
+   "network": "E.ON Drive",
+   "order": 3,
+   "status": "official",
+   "validFrom": "2026-06-18",
+   "verifiedAt": "2026-10-12",
+   "tariffs": [
+    {
+     "id": "adhoc",
+     "name": "Neregistrovaný",
+     "tier": "adhoc",
+     "fee": 0,
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "skupina 1",
+       "p": 10.5,
+       "tod": [
+        {
+         "from": 8,
+         "to": 20,
+         "label": "denní sazba",
+         "short": "den",
+         "kind": "day",
+         "p": 10.5
+        },
+        {
+         "from": 20,
+         "to": 8,
+         "label": "noční sazba",
+         "short": "noc",
+         "kind": "night",
+         "p": 8.5
+        }
+       ]
+      },
+      {
+       "kind": "DC",
+       "band": "do 100 kW",
+       "minKw": 0,
+       "maxKw": 100,
+       "p": 10.5,
+       "tod": [
+        {
+         "from": 8,
+         "to": 20,
+         "label": "denní sazba",
+         "short": "den",
+         "kind": "day",
+         "p": 10.5
+        },
+        {
+         "from": 20,
+         "to": 8,
+         "label": "noční sazba",
+         "short": "noc",
+         "kind": "night",
+         "p": 8.5
+        }
+       ]
+      },
+      {
+       "kind": "DC",
+       "band": "101–200 kW",
+       "minKw": 101,
+       "maxKw": 200,
+       "p": 14.5,
+       "tod": [
+        {
+         "from": 8,
+         "to": 20,
+         "label": "denní sazba",
+         "short": "den",
+         "kind": "day",
+         "p": 14.5
+        },
+        {
+         "from": 20,
+         "to": 8,
+         "label": "noční sazba",
+         "short": "noc",
+         "kind": "night",
+         "p": 11
+        }
+       ]
+      },
+      {
+       "kind": "DC",
+       "band": "201–400 kW",
+       "minKw": 201,
+       "maxKw": 400,
+       "p": 19.9,
+       "tod": [
+        {
+         "from": 8,
+         "to": 20,
+         "label": "denní sazba",
+         "short": "den",
+         "kind": "day",
+         "p": 19.9
+        },
+        {
+         "from": 20,
+         "to": 8,
+         "label": "noční sazba",
+         "short": "noc",
+         "kind": "night",
+         "p": 14
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "reg",
+     "name": "Registrovaný",
+     "tier": "free",
+     "fee": 0,
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "skupina 1",
+       "p": 9.5,
+       "tod": [
+        {
+         "from": 8,
+         "to": 20,
+         "label": "denní sazba",
+         "short": "den",
+         "kind": "day",
+         "p": 9.5
+        },
+        {
+         "from": 20,
+         "to": 8,
+         "label": "noční sazba",
+         "short": "noc",
+         "kind": "night",
+         "p": 8
+        }
+       ]
+      },
+      {
+       "kind": "DC",
+       "band": "do 100 kW",
+       "minKw": 0,
+       "maxKw": 100,
+       "p": 9.5,
+       "tod": [
+        {
+         "from": 8,
+         "to": 20,
+         "label": "denní sazba",
+         "short": "den",
+         "kind": "day",
+         "p": 9.5
+        },
+        {
+         "from": 20,
+         "to": 8,
+         "label": "noční sazba",
+         "short": "noc",
+         "kind": "night",
+         "p": 8
+        }
+       ]
+      },
+      {
+       "kind": "DC",
+       "band": "101–200 kW",
+       "minKw": 101,
+       "maxKw": 200,
+       "p": 13,
+       "tod": [
+        {
+         "from": 8,
+         "to": 20,
+         "label": "denní sazba",
+         "short": "den",
+         "kind": "day",
+         "p": 13
+        },
+        {
+         "from": 20,
+         "to": 8,
+         "label": "noční sazba",
+         "short": "noc",
+         "kind": "night",
+         "p": 10
+        }
+       ]
+      },
+      {
+       "kind": "DC",
+       "band": "201–400 kW",
+       "minKw": 201,
+       "maxKw": 400,
+       "p": 16.9,
+       "tod": [
+        {
+         "from": 8,
+         "to": 20,
+         "label": "denní sazba",
+         "short": "den",
+         "kind": "day",
+         "p": 16.9
+        },
+        {
+         "from": 20,
+         "to": 8,
+         "label": "noční sazba",
+         "short": "noc",
+         "kind": "night",
+         "p": 12
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "notes": [
+    "Denní sazba platí 8:00–20:00, noční 20:00–8:00. Cena běžícího dobíjení se při přechodu mezi sazbami mění.",
+    "Skupinu určuje maximální výkon dobíjecího bodu; AC konektory patří do skupiny 1 (do 100 kW).",
+    "Po volných minutách 2 Kč/min: skupina 1 po 480 min (AC) nebo 120 min (DC), skupina 2 po 60 min, skupina 3 po 30 min. Registrovaní ve skupině 1 v noci za stání neplatí.",
+    "Ceník je informativní, určující je cena v aplikaci E.ON Drive."
+   ],
+   "sources": [
+    {
+     "label": "Ceník E.ON Drive od 18. 6. 2026 (PDF)",
+     "url": "https://www.eon-drive.cz/wp-content/uploads/2026/06/2606_Cenik-dobijeni-E.ON-Drive.pdf"
+    }
+   ]
+  },
+  {
+   "id": "innogy",
+   "name": "innogy",
+   "network": "innogy eMobilita",
+   "order": 4,
+   "status": "partial",
+   "validFrom": "2026-04-01",
+   "verifiedAt": "2026-10-12",
+   "rowNote": "Po registraci v aplikaci innogy Charge je cena nižší. Přesné sazby AC a DC jsou v ceníku provozovatele, který se nepodařilo strojově načíst.",
+   "dcNote": "podle ceníku innogy",
+   "tariffs": [
+    {
+     "id": "adhoc",
+     "name": "Jednorázově",
+     "tier": "adhoc",
+     "fee": 0,
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "AC stanice",
+       "p": 10.9,
+       "from": true
+      },
+      {
+       "kind": "DC",
+       "band": "DC stanice",
+       "minKw": 0,
+       "na": "podle ceníku innogy"
+      }
+     ]
+    },
+    {
+     "id": "reg",
+     "name": "Po registraci (innogy Charge)",
+     "tier": "free",
+     "fee": 0,
+     "rates": [
+      {
+       "kind": "AC",
+       "band": "AC stanice",
+       "na": "sleva, výše v ceníku"
+      },
+      {
+       "kind": "DC",
+       "band": "DC stanice",
+       "minKw": 0,
+       "na": "sleva, výše v ceníku"
+      }
+     ]
+    }
+   ],
+   "notes": [
+    "Web innogy uvádí jednorázové nabíjení od 10,90 Kč/kWh s DPH a slevu po registraci; ceník platí od 1. 4. 2026.",
+    "Pro srovnání: s kartou E.ON Drive stojí roaming na stanicích innogy 9,50 Kč/kWh (AC) a 13,50 Kč/kWh (DC)."
+   ],
+   "sources": [
+    {
+     "label": "innogy eMobilita",
+     "url": "https://emobilita.innogy.cz/"
+    },
+    {
+     "label": "Ceník innogy od 1. 4. 2026 (PDF)",
+     "url": "https://emobilita.innogy.cz/-/media/Files/innogyemobilita/informace-pro-zakazniky/dokumenty-ke-stazeni/innogy_eMobilita_cenik_CS_260325.pdf"
+    }
+   ]
+  },
+  {
+   "id": "ionity",
+   "name": "Ionity",
+   "network": "ultrarychlé stanice u dálnic",
+   "order": 5,
+   "status": "official",
+   "validFrom": "2026-07-01",
+   "verifiedAt": "2026-10-12",
+   "acNote": "jen DC stanice",
+   "tariffs": [
+    {
+     "id": "direct",
+     "name": "Direct",
+     "tier": "adhoc",
+     "fee": 0,
+     "note": "platba na místě bez registrace",
+     "rates": [
+      {
+       "kind": "DC",
+       "band": "HPC stanice",
+       "minKw": 0,
+       "p": 21,
+       "pMax": 22.68
+      }
+     ]
+    },
+    {
+     "id": "app",
+     "name": "Ionity App",
+     "tier": "free",
+     "fee": 0,
+     "rates": [
+      {
+       "kind": "DC",
+       "band": "HPC stanice",
+       "minKw": 0,
+       "p": 19.95,
+       "from": true
+      }
+     ]
+    },
+    {
+     "id": "motion",
+     "name": "Motion",
+     "tier": "paid",
+     "fee": 142,
+     "rates": [
+      {
+       "kind": "DC",
+       "band": "HPC stanice",
+       "minKw": 0,
+       "p": 15,
+       "from": true
+      }
+     ]
+    },
+    {
+     "id": "power",
+     "name": "Power",
+     "tier": "paid",
+     "fee": 305,
+     "rates": [
+      {
+       "kind": "DC",
+       "band": "HPC stanice",
+       "minKw": 0,
+       "p": 12,
+       "from": true
+      }
+     ]
+    },
+    {
+     "id": "motion365",
+     "name": "Motion 365",
+     "tier": "paid",
+     "fee": 1420,
+     "feePeriod": "rok",
+     "rates": [
+      {
+       "kind": "DC",
+       "band": "HPC stanice",
+       "minKw": 0,
+       "p": 15.58,
+       "from": true
+      }
+     ]
+    },
+    {
+     "id": "power365",
+     "name": "Power 365",
+     "tier": "paid",
+     "fee": 3050,
+     "feePeriod": "rok",
+     "rates": [
+      {
+       "kind": "DC",
+       "band": "HPC stanice",
+       "minKw": 0,
+       "p": 12.46,
+       "from": true
+      }
+     ]
+    }
+   ],
+   "notes": [
+    "Ionity uvádí minimální ceny; na konkrétní stanici může být cena vyšší.",
+    "Platba bez registrace stojí od 1. 7. 2026 podle stanice až 22,68 Kč/kWh."
+   ],
+   "sources": [
+    {
+     "label": "Předplatné a ceny Ionity",
+     "url": "https://www.ionity.eu/cz/predplatne"
+    },
+    {
+     "label": "fDrive: Ionity mění ceník od července 2026",
+     "url": "https://fdrive.cz/clanky/ionity-meni-cenik-nabijeni-elektromobilu-od-cervence-podrazi-16916"
+    }
+   ]
+  },
+  {
+   "id": "tesla",
+   "name": "Tesla",
+   "network": "Supercharger",
+   "order": 6,
+   "status": "secondary",
+   "asOf": "2026-05-14",
+   "verifiedAt": "2026-10-12",
+   "acNote": "jen DC stanice",
+   "rowNote": "Tesla mění ceny podle lokality a hodiny. Rozpětí vychází z přehledu z května 2026; přesnou cenu ukáže aplikace Tesla.",
+   "tariffs": [
+    {
+     "id": "other",
+     "name": "Vozy jiných značek",
+     "tier": "free",
+     "fee": 0,
+     "note": "nabíjení přes aplikaci Tesla",
+     "rates": [
+      {
+       "kind": "DC",
+       "band": "Supercharger",
+       "minKw": 0,
+       "p": 8.7,
+       "pMax": 16.3,
+       "approx": true,
+       "todFallback": "přechod mezi denní a noční cenou",
+       "tod": [
+        {
+         "from": 23,
+         "to": 8,
+         "label": "noční cena",
+         "short": "noc",
+         "kind": "night",
+         "p": 8.7,
+         "pMax": 9.0
+        },
+        {
+         "from": 9,
+         "to": 21,
+         "label": "denní cena",
+         "short": "den",
+         "kind": "day",
+         "p": 14.3,
+         "pMax": 16.3
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "member",
+     "name": "Vozy Tesla a členství",
+     "tier": "paid",
+     "fee": 250,
+     "note": "členství pro jiné značky; majitelé Tesel paušál neplatí",
+     "rates": [
+      {
+       "kind": "DC",
+       "band": "Supercharger",
+       "minKw": 0,
+       "p": 6.2,
+       "pMax": 11.7,
+       "approx": true,
+       "todFallback": "přechod mezi denní a noční cenou",
+       "tod": [
+        {
+         "from": 23,
+         "to": 8,
+         "label": "noční cena",
+         "short": "noc",
+         "kind": "night",
+         "p": 6.2,
+         "pMax": 6.4
+        },
+        {
+         "from": 9,
+         "to": 21,
+         "label": "denní cena",
+         "short": "den",
+         "kind": "day",
+         "p": 10.1,
+         "pMax": 11.7
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "notes": [
+    "Příklady pro jiné značky: Vestec 14,30 Kč (8–23 h) a 8,90 Kč v noci, Brno Olympia 15,70 Kč (9–22 h) a 8,70 Kč, Ostrava 14,70 Kč (8–21 h) a 8,90 Kč. Nejdražší jsou Lovosice (až 16,30 Kč).",
+    "Hranice denní a noční ceny se liší podle lokality, proto je mezi 8–9 h a 21–23 h uvedeno celé rozpětí.",
+    "Cena členství 250 Kč/měsíc je údaj z února 2026.",
+    "Poplatek za blokování stojanu po dobití až 10–20 Kč/min."
+   ],
+   "sources": [
+    {
+     "label": "Finance.cz: srovnání cen nabíjení (14. 5. 2026)",
+     "url": "https://www.finance.cz/clanky/srovnani-cen-nabijeni-elektromobilu-kde-vam-registrace-zdarma-usetri-nejvice/"
+    },
+    {
+     "label": "Elektrickevozy.cz: ceny Supercharger (1. 2. 2026)",
+     "url": "https://elektrickevozy.cz/clanky/tesla-supercharger-cena-nabijeni-v-cesku"
+    },
+    {
+     "label": "Mapa Superchargerů Tesla",
+     "url": "https://www.tesla.com/cs_cz/findus"
+    }
+   ]
+  },
+  {
+   "id": "shell",
+   "name": "Shell Recharge",
+   "network": "stanice u čerpacích stanic Shell a prodejen Billa a Penny",
+   "order": 7,
+   "status": "official",
+   "verifiedAt": "2026-10-12",
+   "acNote": "v Česku jen DC stanice",
+   "tariffs": [
+    {
+     "id": "adhoc",
+     "name": "Jednotná cena",
+     "tier": "adhoc",
+     "fee": 0,
+     "note": "platba kartou přes QR kód nebo kartou Shell",
+     "rates": [
+      {
+       "kind": "DC",
+       "band": "DC stanice",
+       "minKw": 0,
+       "p": 15
+      }
+     ]
+    }
+   ],
+   "notes": [
+    "15 Kč/kWh platí na většině lokalit; Penny Market Kostelec nad Labem a Shell Ústí nad Labem mají 10 Kč/kWh.",
+    "Při platbě kartou se blokuje záloha 500 Kč.",
+    "Přes nabíjecí služby třetích stran může být cena jiná, například s kartou E.ON Drive 17 Kč/kWh."
+   ],
+   "sources": [
+    {
+     "label": "Ceník Shell Recharge",
+     "url": "https://www.shell.cz/dobijeni/cenik.html"
+    },
+    {
+     "label": "Autohled: přehled cen (kontrola 5. 10. 2026)",
+     "url": "https://www.autohled.cz/magazin/ceny-nabijeni-elektromobilu-v-cesku-2026-kompletni-prehled-vsech-operatoru/10864"
+    }
+   ]
+  }
+ ]
+}
