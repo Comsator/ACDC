@@ -1,5 +1,7 @@
 # Ceny nabíjení elektromobilů
 
+**Aplikace: https://comsator.github.io/ACDC/**
+
 Webová aplikace, která ukazuje ceny AC a DC nabíjení u PRE, ČEZ, E.ON, innogy, Ionity, Tesly a Shell Recharge. Běží samostatně na GitHub Pages a na iPhonu ji lze přidat na plochu jako aplikaci.
 
 ## Soubory
@@ -17,7 +19,7 @@ Webová aplikace, která ukazuje ceny AC a DC nabíjení u PRE, ČEZ, E.ON, inno
 1. Na github.com založte nový **veřejný** repozitář, například `ceny-nabijeni` (GitHub Pages jsou u bezplatného účtu dostupné jen pro veřejné repozitáře).
 2. V repozitáři zvolte **Add file → Upload files**, přetáhněte všechny soubory z této složky a potvrďte **Commit changes**. Soubor `.nojekyll` začíná tečkou a ve Finderu nebo Průzkumníku může být skrytý; pokud ho nenahrajete, aplikace funguje i bez něj.
 3. Otevřete **Settings → Pages**, v části *Build and deployment* nastavte *Source: Deploy from a branch*, větev `main`, složku `/ (root)` a uložte.
-4. Za minutu až dvě je aplikace na adrese `https://<váš-účet>.github.io/ceny-nabijeni/`.
+4. Za minutu až dvě je aplikace na adrese https://comsator.github.io/ACDC/.
 
 ## Přidání na plochu iPhonu
 
