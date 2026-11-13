@@ -613,9 +613,11 @@ a{color:var(--accent)}
                .sort(function(a,b){ return (a.order||0)-(b.order||0); });
     S.status = "ready"; S.stale = !!stale || navigator.onLine===false; render(); return true;
   }
+  /* Prefer the copy kept up to date on GitHub Pages; fall back to the file next to this page. */
+  var REMOTE_URL = "https://comsator.github.io/ACDC/ceny.json";
+  function fetchJson(u){ return fetch(u+"?t="+Date.now(), {cache:"no-store"}).then(function(r){ if(!r.ok) throw new Error("http"); return r.json(); }); }
   function loadData(){
-    return fetch(DATA_URL+"?t="+Date.now(), {cache:"no-store"})
-      .then(function(r){ if(!r.ok) throw new Error("http"); return r.json(); })
+    return fetchJson(REMOTE_URL).catch(function(){ return fetchJson(DATA_URL); })
       .then(function(d){ if(applyData(d,false)){ try{ localStorage.setItem(CACHE_KEY, JSON.stringify(d)); }catch(e){} } else { throw new Error("shape"); } })
       .catch(function(){
         if(S.ops && S.ops.length){ S.stale=true; render(); return; }
