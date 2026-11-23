@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-09",
+ "updatedAt": "2026-11-23",
  "operators": [
   {
    "id": "pre",
@@ -212,7 +212,7 @@
     }
    ],
    "validFrom": "2025-12-01",
-   "verifiedAt": "2026-11-09"
+   "verifiedAt": "2026-11-23"
   },
   {
    "id": "cez",
@@ -348,7 +348,7 @@
     }
    ],
    "validFrom": "2026-11-01",
-   "verifiedAt": "2026-11-09"
+   "verifiedAt": "2026-11-23"
   },
   {
    "id": "eon",
@@ -583,7 +583,7 @@
     }
    ],
    "validFrom": "2026-06-18",
-   "verifiedAt": "2026-10-19"
+   "verifiedAt": "2026-11-23"
   },
   {
    "id": "innogy",
@@ -649,7 +649,7 @@
     }
    ],
    "validFrom": "2026-04-01",
-   "verifiedAt": "2026-11-09"
+   "verifiedAt": "2026-11-23"
   },
   {
    "id": "ionity",
@@ -659,7 +659,7 @@
    "notes": [
     "Ionity uvádí minimální ceny; na konkrétní stanici může být cena vyšší.",
     "Platba bez registrace stojí od 1. 7. 2026 podle stanice až 22,68 Kč/kWh.",
-    "Roční tarify Motion 365 a Power 365 se platí jednorázově na 12 měsíců bez automatického obnovení; web k 9. 11. 2026 u nich zobrazuje i snížené ceny 1 170 Kč a 2 550 Kč za rok."
+    "Roční tarify Motion 365 a Power 365 se platí jednorázově na 12 měsíců bez automatického obnovení; web k 23. 11. 2026 u nich zobrazuje i snížené ceny 1 170 Kč a 2 550 Kč za rok."
    ],
    "order": 5,
    "sources": [
@@ -740,7 +740,7 @@
      "feePeriod": "rok",
      "id": "motion365",
      "name": "Motion 365",
-     "note": "web Ionity k 9. 11. 2026 uvádí vedle ceny 1 420 Kč/rok také sníženou cenu 1 170 Kč/rok",
+     "note": "web Ionity k 23. 11. 2026 uvádí vedle ceny 1 420 Kč/rok také sníženou cenu 1 170 Kč/rok",
      "rates": [
       {
        "band": "HPC stanice",
@@ -757,7 +757,7 @@
      "feePeriod": "rok",
      "id": "power365",
      "name": "Power 365",
-     "note": "web Ionity k 9. 11. 2026 uvádí vedle ceny 3 050 Kč/rok také sníženou cenu 2 550 Kč/rok",
+     "note": "web Ionity k 23. 11. 2026 uvádí vedle ceny 3 050 Kč/rok také sníženou cenu 2 550 Kč/rok",
      "rates": [
       {
        "band": "HPC stanice",
@@ -771,7 +771,7 @@
     }
    ],
    "validFrom": "2026-07-01",
-   "verifiedAt": "2026-11-09"
+   "verifiedAt": "2026-11-23"
   },
   {
    "id": "tesla",
@@ -782,14 +782,14 @@
    "notes": [
     "Vozy jiných značek: mimo špičku 8,80 Kč (Kamenný Újezd) až 18,80 Kč (Lovosice), ve špičce 18,60 Kč (Plzeň) až 23,60 Kč (Čestlice). Vozy Tesla a členové: mimo špičku 6,30 Kč (Kamenný Újezd, Modřice) až 13,40 Kč (Lovosice), ve špičce 13,10 Kč (Vestec, Plzeň) až 14,90 Kč (Čestlice, Lovosice).",
     "Mimo špičku je zpravidla 22–8 h, přesné hranice se liší podle stanice; Kamenný Újezd a Zličín mají navíc večerní pásmo, v Čestlicích platí nejdražší špička jen 12–18 h.",
-    "Členství pro jiné značky stojí 250 Kč/měsíc (údaj z listopadu 2026); majitelé Tesel mají členské ceny automaticky.",
+    "Členství pro jiné značky stojí 290 Kč/měsíc (WattBox údaj opravil 11. 11. 2026 z dříve uváděných 250 Kč); majitelé Tesel mají členské ceny automaticky.",
     "Poplatek za blokování stojanu po dobití 10 Kč/min, na plně obsazené stanici až 20 Kč/min."
    ],
    "order": 6,
    "rowNote": "Tesla mění ceny podle lokality a hodiny. Rozpětí vychází z přehledu cen všech 12 českých stanic k 8. 11. 2026; přesnou cenu ukáže aplikace Tesla.",
    "sources": [
     {
-     "label": "WattBox: ceny všech 12 Superchargerů v ČR (aktualizace 8. 11. 2026)",
+     "label": "WattBox: ceny všech 12 Superchargerů v ČR (ceny k 8. 11. 2026, opraveno 11. 11. 2026)",
      "url": "https://wattbox.cz/blog/tesla-supercharger-cena"
     },
     {
@@ -842,7 +842,7 @@
      "tier": "free"
     },
     {
-     "fee": 250,
+     "fee": 290,
      "id": "member",
      "name": "Vozy Tesla a členství",
      "note": "členství pro jiné značky; majitelé Tesel paušál neplatí",
@@ -880,7 +880,7 @@
      "tier": "paid"
     }
    ],
-   "verifiedAt": "2026-11-09"
+   "verifiedAt": "2026-11-23"
   },
   {
    "id": "shell",
@@ -921,21 +921,21 @@
      "tier": "adhoc"
     }
    ],
-   "verifiedAt": "2026-11-09"
+   "verifiedAt": "2026-11-23"
   }
  ],
  "fuel": [
   {
    "id": "strop",
    "diesel": {
-    "p": 47.28
+    "p": 44.53
    },
    "kind": "cap",
    "name": "Cenový strop MF",
    "natural95": {
-    "p": 41.42
+    "p": 39.47
    },
-   "note": "Ministerstvo financí stanovuje denní maximální ceny běžného benzinu a nafty; regulace je vyhlášena do 30. 11. 2026. Pro 7.–9. 11. 2026 je strop 41,42 Kč/l (benzin) a 47,28 Kč/l (nafta). Průměr v ČR podle CCS k 4. 11. 2026: Natural 95 42,39 Kč/l, nafta 48,08 Kč/l.",
+   "note": "Ministerstvo financí stanovuje denní maximální ceny běžného benzinu a nafty; regulace je vyhlášena od 1. do 30. 11. 2026. Pro 21.–23. 11. 2026 je strop 39,47 Kč/l (benzin) a 44,53 Kč/l (nafta); ceny pro 24. 11. 2026 MF k ránu 23. 11. ještě nevyhlásilo. Průměr v ČR podle CCS k 19. 11. 2026: Natural 95 39,54 Kč/l, nafta 44,68 Kč/l.",
    "order": 0,
    "sources": [
     {
@@ -943,31 +943,31 @@
      "url": "https://mf.gov.cz/cs/kontrola-a-regulace/cenova-regulace-a-kontrola/maximalni-pripustne-ceny-benzinu-a-nafty"
     },
     {
-     "label": "ČTK/České noviny: průměrné ceny podle CCS (5. 11. 2026)",
-     "url": "https://www.ceskenoviny.cz/zpravy/analytici-benzin-bude-dal-zlevnovat-cena-nafty-bude-spise-stagnovat/2897723"
+     "label": "ČTK/České noviny: průměrné ceny podle CCS a stropy na 21.–23. 11. (20. 11. 2026)",
+     "url": "https://www.ceskenoviny.cz/zpravy/prumerna-cena-paliv-v-cr-v-tydnu-opet-klesla-tempo-zlevnovani-ale-zmirnilo/2903907"
     },
     {
      "label": "Měšec.cz: vláda prodloužila regulaci do 30. 11. 2026",
      "url": "https://www.mesec.cz/aktuality/benzin-od-utery-zlevni-nafta-naopak-zdrazi-cenove-stropy-zustanou-i-v-listopadu/"
     }
    ],
-   "validFrom": "2026-11-07",
-   "validTo": "2026-11-09",
-   "verifiedAt": "2026-11-09"
+   "validFrom": "2026-11-21",
+   "validTo": "2026-11-23",
+   "verifiedAt": "2026-11-23"
   },
   {
    "id": "shell",
-   "asOf": "2026-11-09",
+   "asOf": "2026-11-23",
    "diesel": {
-    "p": 45.6,
-    "pMax": 47.2
+    "p": 43.9,
+    "pMax": 44.5
    },
    "name": "Shell",
    "natural95": {
-    "p": 39.9,
-    "pMax": 41.4
+    "p": 38.5,
+    "pMax": 39.4
    },
-   "note": "Rozpětí cen na 40 stanicích podle mBenzin.cz (nejčastěji 41,40 a 47,20 Kč/l), stav k 9. 11. 2026; dvě ceny nafty nad stropem (47,90 Kč/l Bořetice, 48,90 Kč/l Olomouc) jsou jako zastaralé vynechány. Datum nahlášení jednotlivých cen stránka neuvádí, Shell oficiální ceník nezveřejňuje.",
+   "note": "Rozpětí platných cen na 40 stanicích podle mBenzin.cz (nejčastěji 39,29 a 44,50 Kč/l), stav k 23. 11. 2026; dvě ceny nafty nad stropem (44,70 a 45,20 Kč/l) jsou jako zastaralé vynechány. Datum nahlášení jednotlivých cen stránka neuvádí, Shell oficiální ceník nezveřejňuje.",
    "order": 1,
    "sources": [
     {
@@ -976,20 +976,21 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-09"
+   "verifiedAt": "2026-11-23"
   },
   {
    "id": "omv",
-   "asOf": "2026-11-09",
+   "asOf": "2026-11-23",
    "diesel": {
-    "p": 47.2
+    "p": 43.8,
+    "pMax": 44.5
    },
    "name": "OMV",
    "natural95": {
-    "p": 40.9,
-    "pMax": 41.4
+    "p": 38.2,
+    "pMax": 39.4
    },
-   "note": "Ceny na 40 stanicích podle mBenzin.cz, stav k 9. 11. 2026: Natural 95 40,90–41,40 Kč/l (nejčastěji 41,40), nafta jednotně 47,20 Kč/l; všechny ceny jsou pod platným stropem. Datum nahlášení jednotlivých cen stránka neuvádí, OMV oficiální ceník nezveřejňuje.",
+   "note": "Rozpětí platných cen na 40 stanicích podle mBenzin.cz (nejčastěji 39,40 a 44,50 Kč/l), stav k 23. 11. 2026; pět cen nafty nad stropem (44,70–45,20 Kč/l) je jako zastaralých vynecháno. Datum nahlášení jednotlivých cen stránka neuvádí, OMV oficiální ceník nezveřejňuje.",
    "order": 2,
    "sources": [
     {
@@ -998,21 +999,21 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-09"
+   "verifiedAt": "2026-11-23"
   },
   {
    "id": "orlen",
-   "asOf": "2026-11-09",
+   "asOf": "2026-11-23",
    "diesel": {
-    "p": 44.9,
-    "pMax": 46.9
+    "p": 41.9,
+    "pMax": 44.5
    },
    "name": "Orlen",
    "natural95": {
-    "p": 38.9,
-    "pMax": 40.5
+    "p": 36.5,
+    "pMax": 38.3
    },
-   "note": "Rozpětí cen na 40 stanicích podle mBenzin.cz (nejčastěji 38,90 a 44,90 Kč/l), stav k 9. 11. 2026; pět cen nafty nad stropem (47,90–50,90 Kč/l) je jako zastaralých vynecháno. Datum nahlášení jednotlivých cen stránka neuvádí, Orlen oficiální ceník nezveřejňuje.",
+   "note": "Rozpětí platných cen na 40 stanicích podle mBenzin.cz (nejčastěji 36,90 a 41,90 Kč/l), stav k 23. 11. 2026; tři ceny nafty nad stropem (45,50 a 48,50 Kč/l) jsou jako zastaralé vynechány. Datum nahlášení jednotlivých cen stránka neuvádí, Orlen oficiální ceník nezveřejňuje.",
    "order": 3,
    "sources": [
     {
@@ -1021,19 +1022,19 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-09"
+   "verifiedAt": "2026-11-23"
   },
   {
    "id": "tankono",
-   "asOf": "2026-11-09",
+   "asOf": "2026-11-23",
    "diesel": {
-    "p": 44.9
+    "p": 41.9
    },
    "name": "Tank ONO",
    "natural95": {
-    "p": 38.9
+    "p": 36.9
    },
-   "note": "Jednotná cena na všech stanicích sítě podle mBenzin.cz (46 stanic), ceník ověřen 9. 11. 2026; ceny jsou pod platným stropem.",
+   "note": "Jednotná cena na všech stanicích sítě podle mBenzin.cz (46 stanic), ceník ověřen 23. 11. 2026; ceny jsou pod platným stropem.",
    "order": 4,
    "sources": [
     {
@@ -1042,21 +1043,21 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-09"
+   "verifiedAt": "2026-11-23"
   },
   {
    "id": "eurooil",
-   "asOf": "2026-11-09",
+   "asOf": "2026-11-23",
    "diesel": {
-    "p": 44.9,
-    "pMax": 47.2
+    "p": 42.4,
+    "pMax": 44.2
    },
    "name": "EuroOil",
    "natural95": {
-    "p": 38.9,
-    "pMax": 39.9
+    "p": 36.9,
+    "pMax": 37.9
    },
-   "note": "Rozpětí cen na 40 stanicích podle mBenzin.cz (nejčastěji 39,90 a 46,20 Kč/l), stav k 9. 11. 2026; všechny ceny jsou pod platným stropem. Datum nahlášení jednotlivých cen stránka neuvádí.",
+   "note": "Rozpětí cen na 40 stanicích podle mBenzin.cz (nejčastěji 37,90 a 43,20 Kč/l), stav k 23. 11. 2026; všechny ceny jsou pod platným stropem. Datum nahlášení jednotlivých cen stránka neuvádí.",
    "order": 5,
    "sources": [
     {
@@ -1065,7 +1066,7 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-09"
+   "verifiedAt": "2026-11-23"
   }
  ]
 }
