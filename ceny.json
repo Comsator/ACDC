@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-23",
+ "updatedAt": "2026-11-24",
  "operators": [
   {
    "id": "pre",
@@ -212,7 +212,7 @@
     }
    ],
    "validFrom": "2025-12-01",
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   },
   {
    "id": "cez",
@@ -348,7 +348,7 @@
     }
    ],
    "validFrom": "2026-11-01",
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   },
   {
    "id": "eon",
@@ -583,7 +583,7 @@
     }
    ],
    "validFrom": "2026-06-18",
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   },
   {
    "id": "innogy",
@@ -649,7 +649,7 @@
     }
    ],
    "validFrom": "2026-04-01",
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   },
   {
    "id": "ionity",
@@ -771,7 +771,7 @@
     }
    ],
    "validFrom": "2026-07-01",
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   },
   {
    "id": "tesla",
@@ -880,7 +880,7 @@
      "tier": "paid"
     }
    ],
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   },
   {
    "id": "shell",
@@ -921,21 +921,21 @@
      "tier": "adhoc"
     }
    ],
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   }
  ],
  "fuel": [
   {
    "id": "strop",
    "diesel": {
-    "p": 44.53
+    "p": 44.01
    },
    "kind": "cap",
    "name": "Cenový strop MF",
    "natural95": {
-    "p": 39.47
+    "p": 39.33
    },
-   "note": "Ministerstvo financí stanovuje denní maximální ceny běžného benzinu a nafty; regulace je vyhlášena od 1. do 30. 11. 2026. Pro 21.–23. 11. 2026 je strop 39,47 Kč/l (benzin) a 44,53 Kč/l (nafta); ceny pro 24. 11. 2026 MF k ránu 23. 11. ještě nevyhlásilo. Průměr v ČR podle CCS k 19. 11. 2026: Natural 95 39,54 Kč/l, nafta 44,68 Kč/l.",
+   "note": "Ministerstvo financí stanovuje denní maximální ceny běžného benzinu a nafty; regulace je vyhlášena od 1. do 30. 11. 2026. Pro 24. 11. 2026 je strop 39,33 Kč/l (benzin) a 44,01 Kč/l (nafta), MF ho stanovilo 23. 11. 2026; ceny pro další dny MF zatím nezveřejnilo. Průměr v ČR podle CCS k 19. 11. 2026: Natural 95 39,54 Kč/l, nafta 44,68 Kč/l.",
    "order": 0,
    "sources": [
     {
@@ -951,23 +951,23 @@
      "url": "https://www.mesec.cz/aktuality/benzin-od-utery-zlevni-nafta-naopak-zdrazi-cenove-stropy-zustanou-i-v-listopadu/"
     }
    ],
-   "validFrom": "2026-11-21",
-   "validTo": "2026-11-23",
-   "verifiedAt": "2026-11-23"
+   "validFrom": "2026-11-24",
+   "validTo": "2026-11-24",
+   "verifiedAt": "2026-11-24"
   },
   {
    "id": "shell",
-   "asOf": "2026-11-23",
+   "asOf": "2026-11-24",
    "diesel": {
-    "p": 43.9,
-    "pMax": 44.5
+    "p": 42.9,
+    "pMax": 43.9
    },
    "name": "Shell",
    "natural95": {
-    "p": 38.5,
-    "pMax": 39.4
+    "p": 37.9,
+    "pMax": 38.9
    },
-   "note": "Rozpětí platných cen na 40 stanicích podle mBenzin.cz (nejčastěji 39,29 a 44,50 Kč/l), stav k 23. 11. 2026; dvě ceny nafty nad stropem (44,70 a 45,20 Kč/l) jsou jako zastaralé vynechány. Datum nahlášení jednotlivých cen stránka neuvádí, Shell oficiální ceník nezveřejňuje.",
+   "note": "Rozpětí platných cen na 40 stanicích podle mBenzin.cz (nejčastěji 38,90 a 43,90 Kč/l), stav k 24. 11. 2026; 16 cen nafty nad stropem 44,01 Kč/l (44,30–45,20 Kč/l) je jako zastaralých vynecháno. Datum nahlášení jednotlivých cen stránka neuvádí, Shell oficiální ceník nezveřejňuje.",
    "order": 1,
    "sources": [
     {
@@ -976,21 +976,21 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   },
   {
    "id": "omv",
-   "asOf": "2026-11-23",
+   "asOf": "2026-11-24",
    "diesel": {
-    "p": 43.8,
-    "pMax": 44.5
+    "p": 42.9,
+    "pMax": 43.9
    },
    "name": "OMV",
    "natural95": {
     "p": 38.2,
-    "pMax": 39.4
+    "pMax": 39.2
    },
-   "note": "Rozpětí platných cen na 40 stanicích podle mBenzin.cz (nejčastěji 39,40 a 44,50 Kč/l), stav k 23. 11. 2026; pět cen nafty nad stropem (44,70–45,20 Kč/l) je jako zastaralých vynecháno. Datum nahlášení jednotlivých cen stránka neuvádí, OMV oficiální ceník nezveřejňuje.",
+   "note": "Rozpětí platných cen na 40 stanicích podle mBenzin.cz (nejčastěji 38,90 a 43,90 Kč/l), stav k 24. 11. 2026; 17 cen nafty nad stropem 44,01 Kč/l (44,20–44,90 Kč/l) je jako zastaralých vynecháno. Datum nahlášení jednotlivých cen stránka neuvádí, OMV oficiální ceník nezveřejňuje.",
    "order": 2,
    "sources": [
     {
@@ -999,21 +999,21 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   },
   {
    "id": "orlen",
-   "asOf": "2026-11-23",
+   "asOf": "2026-11-24",
    "diesel": {
-    "p": 41.9,
-    "pMax": 44.5
+    "p": 41.5,
+    "pMax": 43.9
    },
    "name": "Orlen",
    "natural95": {
-    "p": 36.5,
+    "p": 36.9,
     "pMax": 38.3
    },
-   "note": "Rozpětí platných cen na 40 stanicích podle mBenzin.cz (nejčastěji 36,90 a 41,90 Kč/l), stav k 23. 11. 2026; tři ceny nafty nad stropem (45,50 a 48,50 Kč/l) jsou jako zastaralé vynechány. Datum nahlášení jednotlivých cen stránka neuvádí, Orlen oficiální ceník nezveřejňuje.",
+   "note": "Rozpětí platných cen na 40 stanicích podle mBenzin.cz (nejčastěji 36,90 Kč/l benzin a 41,90 nebo 42,90 Kč/l nafta), stav k 24. 11. 2026; tři ceny nafty nad stropem 44,01 Kč/l (44,50, 45,50 a 49,50 Kč/l) jsou jako zastaralé vynechány. Datum nahlášení jednotlivých cen stránka neuvádí, Orlen oficiální ceník nezveřejňuje.",
    "order": 3,
    "sources": [
     {
@@ -1022,7 +1022,7 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   },
   {
    "id": "tankono",
@@ -1043,21 +1043,21 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   },
   {
    "id": "eurooil",
-   "asOf": "2026-11-23",
+   "asOf": "2026-11-24",
    "diesel": {
-    "p": 42.4,
-    "pMax": 44.2
+    "p": 41.9,
+    "pMax": 43.2
    },
    "name": "EuroOil",
    "natural95": {
     "p": 36.9,
     "pMax": 37.9
    },
-   "note": "Rozpětí cen na 40 stanicích podle mBenzin.cz (nejčastěji 37,90 a 43,20 Kč/l), stav k 23. 11. 2026; všechny ceny jsou pod platným stropem. Datum nahlášení jednotlivých cen stránka neuvádí.",
+   "note": "Rozpětí cen na 40 stanicích podle mBenzin.cz (nejčastěji 37,50 Kč/l benzin a 42,50 Kč/l nafta), stav k 24. 11. 2026; všechny ceny jsou pod platným stropem. Datum nahlášení jednotlivých cen stránka neuvádí.",
    "order": 5,
    "sources": [
     {
@@ -1066,7 +1066,7 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-23"
+   "verifiedAt": "2026-11-24"
   }
  ]
 }
