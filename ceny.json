@@ -1,5 +1,5 @@
 {
- "updatedAt": "2026-11-24",
+ "updatedAt": "2026-11-27",
  "operators": [
   {
    "id": "pre",
@@ -212,7 +212,7 @@
     }
    ],
    "validFrom": "2025-12-01",
-   "verifiedAt": "2026-11-24"
+   "verifiedAt": "2026-11-27"
   },
   {
    "id": "cez",
@@ -348,7 +348,7 @@
     }
    ],
    "validFrom": "2026-11-01",
-   "verifiedAt": "2026-11-24"
+   "verifiedAt": "2026-11-27"
   },
   {
    "id": "eon",
@@ -583,7 +583,7 @@
     }
    ],
    "validFrom": "2026-06-18",
-   "verifiedAt": "2026-11-24"
+   "verifiedAt": "2026-11-27"
   },
   {
    "id": "innogy",
@@ -649,7 +649,7 @@
     }
    ],
    "validFrom": "2026-04-01",
-   "verifiedAt": "2026-11-24"
+   "verifiedAt": "2026-11-27"
   },
   {
    "id": "ionity",
@@ -771,7 +771,7 @@
     }
    ],
    "validFrom": "2026-07-01",
-   "verifiedAt": "2026-11-24"
+   "verifiedAt": "2026-11-27"
   },
   {
    "id": "tesla",
@@ -880,7 +880,7 @@
      "tier": "paid"
     }
    ],
-   "verifiedAt": "2026-11-24"
+   "verifiedAt": "2026-11-27"
   },
   {
    "id": "shell",
@@ -928,14 +928,14 @@
   {
    "id": "strop",
    "diesel": {
-    "p": 44.01
+    "p": 43.07
    },
    "kind": "cap",
    "name": "Cenový strop MF",
    "natural95": {
-    "p": 39.33
+    "p": 38.8
    },
-   "note": "Ministerstvo financí stanovuje denní maximální ceny běžného benzinu a nafty; regulace je vyhlášena od 1. do 30. 11. 2026. Pro 24. 11. 2026 je strop 39,33 Kč/l (benzin) a 44,01 Kč/l (nafta), MF ho stanovilo 23. 11. 2026; ceny pro další dny MF zatím nezveřejnilo. Průměr v ČR podle CCS k 19. 11. 2026: Natural 95 39,54 Kč/l, nafta 44,68 Kč/l.",
+   "note": "Ministerstvo financí stanovuje denní maximální ceny běžného benzinu a nafty; regulace je vyhlášena od 1. do 30. 11. 2026. Poslední zjištěný strop platí pro 26. 11. 2026: 38,80 Kč/l (benzin) a 43,07 Kč/l (nafta), MF ho stanovilo 25. 11. 2026; strop pro 27. 11. 2026 se na stránce MF nepodařilo dohledat. Průměr v ČR podle CCS (ČTK, 20. 11. 2026): Natural 95 39,54 Kč/l, nafta 44,68 Kč/l.",
    "order": 0,
    "sources": [
     {
@@ -951,9 +951,9 @@
      "url": "https://www.mesec.cz/aktuality/benzin-od-utery-zlevni-nafta-naopak-zdrazi-cenove-stropy-zustanou-i-v-listopadu/"
     }
    ],
-   "validFrom": "2026-11-24",
-   "validTo": "2026-11-24",
-   "verifiedAt": "2026-11-24"
+   "validFrom": "2026-11-26",
+   "validTo": "2026-11-26",
+   "verifiedAt": "2026-11-27"
   },
   {
    "id": "shell",
@@ -1026,15 +1026,15 @@
   },
   {
    "id": "tankono",
-   "asOf": "2026-11-23",
+   "asOf": "2026-11-26",
    "diesel": {
-    "p": 41.9
+    "p": 40.5
    },
    "name": "Tank ONO",
    "natural95": {
-    "p": 36.9
+    "p": 35.9
    },
-   "note": "Jednotná cena na všech stanicích sítě podle mBenzin.cz (46 stanic), ceník ověřen 23. 11. 2026; ceny jsou pod platným stropem.",
+   "note": "Jednotná cena na všech stanicích sítě podle mBenzin.cz (46 stanic), ceník ověřen 26. 11. 2026; ceny jsou pod posledním známým stropem.",
    "order": 4,
    "sources": [
     {
@@ -1043,21 +1043,21 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-24"
+   "verifiedAt": "2026-11-27"
   },
   {
    "id": "eurooil",
-   "asOf": "2026-11-24",
+   "asOf": "2026-11-27",
    "diesel": {
-    "p": 41.9,
-    "pMax": 43.2
+    "p": 40.9,
+    "pMax": 42.6
    },
    "name": "EuroOil",
    "natural95": {
-    "p": 36.9,
-    "pMax": 37.9
+    "p": 35.9,
+    "pMax": 36.9
    },
-   "note": "Rozpětí cen na 40 stanicích podle mBenzin.cz (nejčastěji 37,50 Kč/l benzin a 42,50 Kč/l nafta), stav k 24. 11. 2026; všechny ceny jsou pod platným stropem. Datum nahlášení jednotlivých cen stránka neuvádí.",
+   "note": "Rozpětí cen na 40 stanicích podle mBenzin.cz (nejčastěji 36,60 Kč/l benzin a 41,50 Kč/l nafta), stav k 27. 11. 2026; všechny ceny jsou pod posledním známým stropem. Datum nahlášení jednotlivých cen stránka neuvádí.",
    "order": 5,
    "sources": [
     {
@@ -1066,7 +1066,7 @@
     }
    ],
    "status": "secondary",
-   "verifiedAt": "2026-11-24"
+   "verifiedAt": "2026-11-27"
   }
  ]
 }
